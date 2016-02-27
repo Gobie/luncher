@@ -1,0 +1,31 @@
+{
+  "name": "luncher",
+  "version": "0.0.1",
+  "description": "Lunches nearby",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "5.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Gobie/luncher.git"
+  },
+  "keywords": [
+    "lunch"
+  ],
+  "author": "Michal Brašna <michal.brasna@gmail.com> (https://github.com/Gobie)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gobie/luncher/issues"
+  },
+  "homepage": "https://github.com/Gobie/luncher#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "servicebus": "^2.0.1",
+    "throng": "^2.0.1"
+  }
+}
