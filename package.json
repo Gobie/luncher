@@ -25,6 +25,7 @@
   "homepage": "https://github.com/Gobie/luncher#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "helmet": "^1.1.0",
     "servicebus": "^2.0.1",
     "throng": "^2.0.1"
   }

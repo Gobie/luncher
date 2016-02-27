@@ -7,14 +7,28 @@ throng(start, {
   workers: WORKERS
 });
 
-function start() {
+function start(workerId) {
+  var helmet = require('helmet');
   var express = require('express');
   var app = express();
 
   app
+    .use(helmet())
+    .get('/', require('./lib/routes/index.js'))
+    .use(errorHandler)
     .listen(PORT, onListen);
 
   function onListen() {
-    console.log('Listening on', PORT);
+    console.log('Server worker', workerId, 'is listening on', PORT);
+  }
+
+  function errorHandler(err, req, res, next) {
+    console.error(err.stack);
+
+    if (res.headersSent) {
+      return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: err });
   }
 }
