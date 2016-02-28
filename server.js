@@ -5,7 +5,7 @@ var throng = require('throng')
 
 var WORKERS = process.env.WEB_CONCURRENCY || 1
 var PORT = process.env.PORT || 3000
-var REQUEST_TIMEOUT = 2000
+var REQUEST_TIMEOUT = process.env.REQUEST_TIMEOUT || 2000
 
 throng(start, {
   workers: WORKERS

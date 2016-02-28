@@ -4,7 +4,7 @@
   "description": "Lunches nearby",
   "main": "server.js",
   "scripts": {
-    "check-coverage": "istanbul check-coverage --functions 100 --statements 100 --branches 100 --lines 100",
+    "check-coverage": "istanbul check-coverage --functions 100 --statements 90",
     "coverage": "istanbul cover _mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
     "lint": "xo",
     "service": "node service.js",
@@ -34,8 +34,10 @@
     "express": "^4.13.4",
     "helmet": "^1.1.0",
     "lodash": "^4.5.1",
+    "moment": "^2.11.2",
     "throng": "^2.0.1",
-    "uuid": "^2.0.1"
+    "uuid": "^2.0.1",
+    "x-ray": "^2.0.3"
   },
   "devDependencies": {
     "istanbul": "^0.4.2",

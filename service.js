@@ -20,6 +20,11 @@ function start(workerId) {
         console.error(err)
         res = {error: err}
       }
+      res = {
+        name: SERVICE_NAME,
+        data: res,
+        timestamp: Date.now()
+      }
 
       channelWrapper.sendToQueue(
         msg.properties.replyTo,
