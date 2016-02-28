@@ -1,5 +1,6 @@
 'use strict'
 
+require('dotenv').config({silent: true})
 var throng = require('throng')
 
 var WORKERS = process.env.WEB_CONCURRENCY || 1
