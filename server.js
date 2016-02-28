@@ -1,34 +1,38 @@
-var throng = require('throng');
+'use strict'
 
-var WORKERS = process.env.WEB_CONCURRENCY || 1;
-var PORT = process.env.PORT || 3000;
+var throng = require('throng')
+
+var WORKERS = process.env.WEB_CONCURRENCY || 1
+var PORT = process.env.PORT || 3000
+var REQUEST_TIMEOUT = 2000
 
 throng(start, {
   workers: WORKERS
-});
+})
 
 function start(workerId) {
-  var helmet = require('helmet');
-  var express = require('express');
-  var app = express();
+  var bus = require('./lib/bus')()
+  var helmet = require('helmet')
+  var express = require('express')
+  var app = express()
 
   app
     .use(helmet())
-    .get('/', require('./lib/routes/index.js'))
+    .get('/', require('./lib/routes/index.js')(bus, REQUEST_TIMEOUT))
     .use(errorHandler)
-    .listen(PORT, onListen);
+    .listen(PORT, onListen)
 
   function onListen() {
-    console.log('Server worker', workerId, 'is listening on', PORT);
+    console.log('server worker', workerId, 'is listening on', PORT)
   }
 
   function errorHandler(err, req, res, next) {
-    console.error(err.stack);
+    console.error(err.stack)
 
     if (res.headersSent) {
-      return next(err);
+      return next(err)
     }
-    res.status(500);
-    res.render('error', { error: err });
+    res.status(500)
+    res.send({error: err})
   }
 }
