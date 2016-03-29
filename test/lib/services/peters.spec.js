@@ -10,7 +10,7 @@ describe('menu service: peters', function () {
     peters().execute({}, function (err, res) {
       assert.equal(err, null)
       assert(res)
-      assert(Object.keys(res.menu).length, 1)
+      assert(res.menu)
       done()
     })
   })
