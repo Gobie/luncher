@@ -7,6 +7,7 @@
     "check-coverage": "istanbul check-coverage --functions 100 --statements 90",
     "coverage": "istanbul cover _mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
     "lint": "xo",
+    "services": "node services.js",
     "service": "node service.js",
     "start": "node server.js",
     "test": "npm run lint && npm run coverage && npm run check-coverage"
@@ -35,6 +36,7 @@
     "helmet": "^1.1.0",
     "lodash": "^4.5.1",
     "moment": "^2.11.2",
+    "node-spawn": "0.0.7",
     "throng": "^2.0.1",
     "uuid": "^2.0.1",
     "x-ray": "^2.0.3"
