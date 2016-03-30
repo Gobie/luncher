@@ -1,13 +1,13 @@
 'use strict'
 
 var assert = require('assert')
-var peters = require('../../../lib/services/peters')
+var tankovna = require('../../../lib/services/tankovna')
 
-describe('menu service: peters', function () {
+describe('menu service: tankovna', function () {
   this.timeout(5 * 1000)
 
   it('can correctly parse lunch menu', function (done) {
-    peters().execute({}, function (err, res) {
+    tankovna().execute({}, function (err, res) {
       assert.equal(err, null)
       assert(res)
       assert(res.menu)
