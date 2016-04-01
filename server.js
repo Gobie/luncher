@@ -1,30 +1,31 @@
 'use strict'
 
-require('dotenv').config({silent: true})
+var config = require('./config.js')
 var throng = require('throng')
 
-var WORKERS = process.env.WEB_CONCURRENCY || 1
-var PORT = process.env.PORT || 3000
-var REQUEST_TIMEOUT = process.env.REQUEST_TIMEOUT || 2000
-
 throng(start, {
-  workers: WORKERS
+  workers: config.WORKERS
 })
 
 function start(workerId) {
-  var bus = require('./lib/bus')()
+  var bus = require('./lib/bus')(config)
   var helmet = require('helmet')
+  var compression = require('compression')
+  var morgan = require('morgan')
   var express = require('express')
   var app = express()
 
   app
+    .use(morgan(config.LOGGING))
+    .use(compression())
     .use(helmet())
-    .get('/', require('./lib/routes/index.js')(bus, REQUEST_TIMEOUT))
+    .use('/api', require('./lib/routes/api/index')(express.Router(), bus, config))
+    .get('/', require('./lib/routes/index')(bus, config))
     .use(errorHandler)
-    .listen(PORT, onListen)
+    .listen(config.PORT, onListen)
 
   function onListen() {
-    console.log('server worker', workerId, 'is listening on', PORT)
+    console.log('server worker', workerId, 'is listening on', config.PORT)
   }
 
   function errorHandler(err, req, res, next) {
@@ -33,6 +34,7 @@ function start(workerId) {
     if (res.headersSent) {
       return next(err)
     }
+
     res.status(500)
     res.send({error: err})
   }

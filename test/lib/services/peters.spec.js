@@ -1,17 +1,21 @@
 'use strict'
 
-var assert = require('assert')
-var peters = require('../../../lib/services/peters')
+var moment = require('moment')
+var helpers = require('./helpers')
+var service = require('../../../lib/services/peters')()
 
 describe('menu service: peters', function () {
   this.timeout(5 * 1000)
 
   it('can correctly parse lunch menu', function (done) {
-    peters().execute({}, function (err, res) {
-      assert.equal(err, null)
-      assert(res)
-      assert(res.menu)
-      done()
-    })
+    service.execute({}, helpers.verifyResponse(done))
+  })
+
+  it('returns today\'s lunch menu', function (done) {
+    service.execute({date: moment.utc().format('YYYY-MM-DD')}, helpers.verifyResponse(done))
+  })
+
+  it('returns next lunch menu', function (done) {
+    service.execute({date: moment.utc().format('YYYY-MM-DD'), next: true}, helpers.verifyResponse(done))
   })
 })

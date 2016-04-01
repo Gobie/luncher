@@ -1,2 +1,2 @@
-web: npm start
-worker: SERVICE_NAMES=pub,peters,tankovna npm run services
+web: NODE_ENV=production npm start
+worker: NODE_ENV=production npm run services

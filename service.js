@@ -1,27 +1,33 @@
 'use strict'
 
-require('dotenv').config({silent: true})
+var config = require('./config.js')
 var throng = require('throng')
 
-var WORKERS = process.env.WEB_CONCURRENCY || 1
-var SERVICE_NAME = process.env.SERVICE_NAME || 'unknown'
-
 throng(start, {
-  workers: WORKERS
+  workers: config.WORKERS
 })
 
 function start(workerId) {
-  var bus = require('./lib/bus')()
-  var service = require('./lib/services/' + SERVICE_NAME)()
+  var tv4 = require('tv4')
+  var bus = require('./lib/bus')(config)
+  var service = require('./lib/services/' + config.SERVICE_NAME)()
+  var serviceSchema = require('./lib/schema/service')
 
-  var channelWrapper = bus.server('service.menu.' + SERVICE_NAME, function (msg, data) {
+  var channelWrapper = bus.server('service.menu.' + config.SERVICE_NAME, function (msg, data) {
     service.execute(data, function (err, res) {
       if (err) {
-        console.error(err)
+        console.error(data, err)
         res = {error: err}
+      } else {
+        var result = tv4.validateResult(res, serviceSchema, true, true)
+        if (!result.valid) {
+          console.error(data, result)
+          res = {error: result}
+        }
       }
+
       res = {
-        name: SERVICE_NAME,
+        name: config.SERVICE_NAME,
         data: res,
         timestamp: Date.now()
       }
@@ -34,5 +40,7 @@ function start(workerId) {
     })
   })
 
-  console.log(SERVICE_NAME, 'service worker', workerId, 'is listening')
+  channelWrapper.waitForConnect().then(function () {
+    console.log(config.SERVICE_NAME, 'service worker', workerId, 'is listening')
+  })
 }
