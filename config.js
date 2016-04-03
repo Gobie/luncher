@@ -1,13 +1,5 @@
 require('dotenv').config({silent: true})
 
-if (!process.env.CLOUDAMQP_URL) {
-  throw new Error('CLOUDAMQP_URL environment variable must be set')
-}
-
-if (!process.env.MEMCACHEDCLOUD_PASSWORD) {
-  throw new Error('MEMCACHEDCLOUD_PASSWORD environment variable must be set')
-}
-
 module.exports = {
   // addons
   AMQP: process.env.CLOUDAMQP_URL,
