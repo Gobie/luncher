@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/Gobie/luncher#readme",
   "dependencies": {
+    "@slack/client": "^2.3.0",
     "amqp-connection-manager": "^1.3.1",
     "amqplib": "^0.4.1",
     "compression": "^1.6.1",
@@ -41,6 +42,7 @@
     "moment": "^2.11.2",
     "morgan": "^1.7.0",
     "node-spawn": "0.0.7",
+    "request": "^2.69.0",
     "throng": "^2.0.1",
     "tv4": "^1.2.7",
     "uuid": "^2.0.1",

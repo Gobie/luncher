@@ -1,3 +1,5 @@
+'use strict'
+
 require('dotenv').config({silent: true})
 
 module.exports = {
@@ -14,6 +16,8 @@ module.exports = {
   REQUEST_TIMEOUT: 5000,
   PORT: process.env.PORT || 3000,
   LOGGING: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
+  // slack
+  SLACK_API_TOKEN: process.env.SLACK_API_TOKEN || '',
   // global
   NODE_ENV: process.env.NODE_ENV || 'development',
   DEBUG: process.env.DEBUG,
