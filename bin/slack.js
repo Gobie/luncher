@@ -1,9 +1,15 @@
 'use strict'
 
+var moment = require('moment')
 var request = require('request')
 var WebClient = require('@slack/client').WebClient
 var config = require('../config')
 var web = new WebClient(config.SLACK_API_TOKEN)
+
+var isWeekend = function () {
+  var weekDay = moment().day()
+  return weekDay === 0 || weekDay === 6
+}
 
 var postMessageHandler = function postMessage(err, info) {
   if (err) {
@@ -32,6 +38,11 @@ var prepareMessage = function (json) {
 
 var sendMessage = function (user, message, options) {
   web.chat.postMessage(user, message, options, postMessageHandler)
+}
+
+// don't bother on weekends
+if (isWeekend()) {
+  return
 }
 
 request('http://sbks-luncher.herokuapp.com/api/next', function (err, response, body) {
