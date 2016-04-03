@@ -9,7 +9,7 @@ module.exports = {
   // services
   SERVICES: (process.env.SERVICES || '').split(','),
   SERVICE_NAME: process.env.SERVICE_NAME || 'unknown',
-  CACHE_EXPIRATION: 7 * 86400,
+  CACHE_EXPIRATION: 4 * 3600,
   // server
   REQUEST_TIMEOUT: 5000,
   PORT: process.env.PORT || 3000,
