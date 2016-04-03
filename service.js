@@ -52,6 +52,6 @@ function start(workerId) {
   })
 
   channelWrapper.waitForConnect().then(function () {
-    console.log(config.SERVICE_NAME, 'service worker', workerId, 'is listening')
+    console.log('service worker', workerId, 'is listening')
   })
 }
