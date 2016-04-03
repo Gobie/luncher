@@ -9,35 +9,46 @@ throng(start, {
 
 function start(workerId) {
   var tv4 = require('tv4')
-  var bus = require('./lib/bus')(config)
-  var service = require('./lib/services/' + config.SERVICE_NAME)()
   var serviceSchema = require('./lib/schema/service')
+  var bus = require('./lib/bus')(config)
+  var middleware = require('ware')()
+  var cache = require('./lib/service/middleware/cache')(config)
+  var service = require('./lib/service/' + config.SERVICE_NAME)()
+
+  middleware
+    .use(cache.middleware.retrieve)
+    .use(service.middleware)
+    .use(cache.middleware.save)
 
   var channelWrapper = bus.server('service.menu.' + config.SERVICE_NAME, function (msg, data) {
-    service.execute(data, function (err, res) {
+    var validate = function (err, res) {
       if (err) {
-        console.error(data, err)
-        res = {error: err}
-      } else {
-        var result = tv4.validateResult(res, serviceSchema, true, true)
-        if (!result.valid) {
-          console.error(data, result)
-          res = {error: result}
-        }
+        console.error(data, err.stack || err)
+        return {error: String(err)}
       }
 
-      res = {
-        name: config.SERVICE_NAME,
-        data: res,
-        timestamp: Date.now()
+      var result = tv4.validateResult(res, serviceSchema, true, true)
+      if (!result.valid) {
+        console.error(data, result)
+        return {error: result}
       }
 
+      return res
+    }
+
+    var next = function (err, req, res) {
       channelWrapper.sendToQueue(
         msg.properties.replyTo,
-        res,
+        {
+          name: config.SERVICE_NAME,
+          data: validate(err, res ? res.data : null),
+          timestamp: Date.now()
+        },
         {correlationId: msg.properties.correlationId}
       )
-    })
+    }
+
+    middleware.run({data: data}, {data: null, send: next}, next)
   })
 
   channelWrapper.waitForConnect().then(function () {
