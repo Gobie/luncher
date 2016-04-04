@@ -1,7 +1,7 @@
 {
   "name": "luncher",
   "version": "0.0.1",
-  "description": "Lunches nearby",
+  "description": "Accessible lunch menus",
   "main": "server.js",
   "scripts": {
     "check-coverage": "istanbul check-coverage --functions 90",
@@ -12,7 +12,7 @@
     "service": "node service.js",
     "start": "node server.js",
     "test": "npm run lint && npm run coverage && npm run check-coverage",
-    "coverage-ci": "./node_modules/.bin/codecov",
+    "coverage-ci": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
     "test-ci": "npm run lint && npm run coverage && npm run coverage-ci && npm run check-coverage"
   },
   "engines": {
@@ -52,7 +52,7 @@
     "x-ray": "^2.0.3"
   },
   "devDependencies": {
-    "codecov": "^1.0.1",
+    "codacy-coverage": "^1.1.3",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "xo": "^0.12.1"
