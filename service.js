@@ -3,10 +3,6 @@
 var config = require('./config.js')
 var throng = require('throng')
 
-throng(start, {
-  workers: config.WORKERS
-})
-
 function start(workerId) {
   var tv4 = require('tv4')
   var serviceSchema = require('./lib/schema/service')
@@ -55,3 +51,7 @@ function start(workerId) {
     console.log('service worker', workerId, 'is listening')
   })
 }
+
+throng(start, {
+  workers: config.WORKERS
+})
