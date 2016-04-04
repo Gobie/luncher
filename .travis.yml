@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 env:
-  - SERVICES=pub,peters,tankovna
+  - SERVICES=pub,peters,tankovna,u-sani
 branches:
   only:
     - master
