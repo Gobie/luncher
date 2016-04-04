@@ -10,3 +10,4 @@ cache:
     - node_modules
 node_js:
   - 'stable'
+script: npm run test-ci

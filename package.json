@@ -11,7 +11,9 @@
     "services": "node services.js",
     "service": "node service.js",
     "start": "node server.js",
-    "test": "npm run lint && npm run coverage && npm run check-coverage"
+    "test": "npm run lint && npm run coverage && npm run check-coverage",
+    "coverage-ci": "./node_modules/.bin/codecov",
+    "test-ci": "npm run lint && npm run coverage && npm run coverage-ci && npm run check-coverage"
   },
   "engines": {
     "node": "5.4.0"
@@ -50,6 +52,7 @@
     "x-ray": "^2.0.3"
   },
   "devDependencies": {
+    "codecov": "^1.0.1",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "xo": "^0.12.1"
