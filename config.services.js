@@ -20,5 +20,9 @@ module.exports = [
   {
     name: 'u-sani',
     title: 'U Saní'
+  },
+  {
+    name: 'lokal-hamburk',
+    title: 'Lokál Hamburk'
   }
 ]
