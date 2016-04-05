@@ -4,16 +4,16 @@
   "description": "Accessible lunch menus",
   "main": "server.js",
   "scripts": {
-    "check-coverage": "istanbul check-coverage --functions 90",
-    "coverage": "istanbul cover _mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
-    "mocha": "mocha -R spec --bail --check-leaks test/**/*.spec.js",
+    "coverage:check": "istanbul check-coverage --functions 90",
+    "coverage:ci": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
+    "coverage:generate": "istanbul cover _mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
     "lint": "xo",
-    "services": "node services.js",
     "service": "node service.js",
-    "start": "node server.js",
-    "test": "npm run lint && npm run coverage && npm run check-coverage",
-    "coverage-ci": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
-    "test-ci": "npm run lint && npm run coverage && npm run coverage-ci && npm run check-coverage"
+    "services": "node services.js",
+    "server": "node server.js",
+    "test": "npm run lint && npm run coverage:generate && npm run coverage:check",
+    "test:ci": "npm run lint && npm run coverage:generate && npm run coverage:ci && npm run coverage:check",
+    "test:mocha": "mocha -R spec --bail --check-leaks test/**/*.spec.js"
   },
   "engines": {
     "node": "5.4.0"
