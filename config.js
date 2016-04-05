@@ -2,6 +2,9 @@
 
 require('dotenv').config({silent: true})
 
+var _ = require('lodash')
+var services = require('./config.services.js')
+
 module.exports = {
   // addons
   AMQP: process.env.CLOUDAMQP_URL,
@@ -9,8 +12,10 @@ module.exports = {
   MEMCAHE_USERNAME: process.env.MEMCACHEDCLOUD_USERNAME,
   MEMCAHE_PASSWORD: process.env.MEMCACHEDCLOUD_PASSWORD,
   // services
-  SERVICES: (process.env.SERVICES || '').split(','),
-  SERVICE_NAME: process.env.SERVICE_NAME || 'unknown',
+  SERVICES: services,
+  SERVICE: _.find(services, function (service) {
+    return service.name === process.env.SERVICE_NAME
+  }),
   CACHE_EXPIRATION: 4 * 3600,
   CACHE_ENABLED: process.env.NODE_ENV === 'production',
   // server

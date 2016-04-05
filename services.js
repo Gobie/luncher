@@ -11,15 +11,11 @@ var logger = function (serviceName, type) {
 }
 
 for (var i = 0; i < config.SERVICES.length; i++) {
-  if (!config.SERVICES[i]) {
-    continue
-  }
-
   spawn({
-    env: _.assign({}, process.env, {SERVICE_NAME: config.SERVICES[i]}),
+    env: _.assign({}, process.env, {SERVICE_NAME: config.SERVICES[i].name}),
     cmd: 'npm',
     args: ['run', 'service'],
-    onStdout: logger(config.SERVICES[i], 'stdout'),
-    onStderr: logger(config.SERVICES[i], 'stderr')
+    onStdout: logger(config.SERVICES[i].name, 'stdout'),
+    onStderr: logger(config.SERVICES[i].name, 'stderr')
   }).forever()
 }

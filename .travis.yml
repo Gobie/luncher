@@ -1,7 +1,5 @@
 sudo: false
 language: node_js
-env:
-  - SERVICES=peters,pub,tankovna,u-sani,meat-market
 branches:
   only:
     - master

@@ -53,7 +53,7 @@ var createServiceTests = function (serviceName, middleware) {
 
 describe('menu services', function () {
   for (var i = 0; i < config.SERVICES.length; i++) {
-    var serviceName = config.SERVICES[i]
+    var serviceName = config.SERVICES[i].name
     var service = require(rootPath + 'lib/service/' + serviceName)()
     var middleware = ware().use(service.middleware)
 

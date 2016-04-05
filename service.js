@@ -9,14 +9,14 @@ function start(workerId) {
   var bus = require('./lib/bus')(config)
   var middleware = require('ware')()
   var cache = require('./lib/service/middleware/cache')(config)
-  var service = require('./lib/service/' + config.SERVICE_NAME)()
+  var service = require('./lib/service/' + config.SERVICE.name)()
 
   middleware
     .use(cache.middleware.retrieve)
     .use(service.middleware)
     .use(cache.middleware.save)
 
-  var channelWrapper = bus.server('service.menu.' + config.SERVICE_NAME, function (msg, data) {
+  var channelWrapper = bus.server('service.menu.' + config.SERVICE.name, function (msg, data) {
     var validate = function (err, res) {
       if (err) {
         console.error(data, err.stack || err)
@@ -36,7 +36,8 @@ function start(workerId) {
       channelWrapper.sendToQueue(
         msg.properties.replyTo,
         {
-          name: config.SERVICE_NAME,
+          name: config.SERVICE.name,
+          title: config.SERVICE.title,
           data: validate(err, res ? res.data : null),
           timestamp: Date.now()
         },
