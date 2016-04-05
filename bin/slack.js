@@ -25,7 +25,11 @@ var postMessageHandler = function postMessage(err, info) {
 var prepareMessage = function (json) {
   var message = ''
   for (var i = 0; i < json.length; i++) {
-    message += '*' + json[i].name + '*\n'
+    if (!json[i].menu[0]) {
+      continue
+    }
+
+    message += '*' + json[i].title + '*\n'
     for (var j = 0; j < json[i].menu[0].items.length; j++) {
       var menuItem = json[i].menu[0].items[j]
       message += '- ' + menuItem.item + ' (' + menuItem.amount + ') _' + menuItem.price + '_\n'
