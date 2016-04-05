@@ -10,12 +10,25 @@ var logger = function (serviceName, type) {
   }
 }
 
+var apps = []
 for (var i = 0; i < config.SERVICES.length; i++) {
-  spawn({
+  var options = {
     env: _.assign({}, process.env, {SERVICE_NAME: config.SERVICES[i].name}),
     cmd: 'npm',
     args: ['run', 'service'],
     onStdout: logger(config.SERVICES[i].name, 'stdout'),
     onStderr: logger(config.SERVICES[i].name, 'stderr')
-  }).forever()
+  }
+  apps.push(spawn(options).forever())
 }
+
+var cleanup = function () {
+  var app = apps.pop()
+  while (app) {
+    app.kill()
+    app = apps.pop()
+  }
+}
+
+process.on('SIGTERM', cleanup)
+process.on('SIGINT', cleanup)
