@@ -1,5 +1,6 @@
 'use strict'
 
+var _ = require('lodash')
 var moment = require('moment')
 var request = require('request')
 var WebClient = require('@slack/client').WebClient
@@ -11,7 +12,7 @@ var isWeekend = function () {
   return weekDay === 0 || weekDay === 6
 }
 
-var postMessageHandler = function postMessage(err, info) {
+var postMessageHandler = function (err, info) {
   if (err) {
     console.log('Error:', err)
     return
@@ -44,6 +45,12 @@ var sendMessage = function (user, message, options) {
   web.chat.postMessage(user, message, options, postMessageHandler)
 }
 
+var only = function (allowed) {
+  return function (place) {
+    return allowed.indexOf(place.name) !== -1
+  }
+}
+
 // don't bother on weekends
 if (isWeekend()) {
   process.exit(0)
@@ -63,11 +70,12 @@ request(config.URL + 'api/next', function (err, response, body) {
     return
   }
 
-  var message = prepareMessage(json)
   var options = {
     username: 'sbks-luncher'
   }
 
-  sendMessage('@michal.brasna', message, options)
-  sendMessage('@jan.pavlovsky', message, options)
+  for (var i = 0; i < config.NOTIFICATIONS.length; i++) {
+    var menu = _.filter(json, only(config.NOTIFICATIONS[i].services))
+    sendMessage(config.NOTIFICATIONS[i].user, prepareMessage(menu), options)
+  }
 })

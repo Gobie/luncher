@@ -4,6 +4,7 @@ require('dotenv').config({silent: true})
 
 var _ = require('lodash')
 var services = require('./config.services.js')
+var notifications = require('./config.notifications.js')
 
 module.exports = {
   // addons
@@ -24,6 +25,7 @@ module.exports = {
   LOGGING: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
   // slack
   SLACK_API_TOKEN: process.env.SLACK_API_TOKEN || '',
+  NOTIFICATIONS: notifications,
   // global
   NODE_ENV: process.env.NODE_ENV || 'development',
   DEBUG: process.env.DEBUG || '',
