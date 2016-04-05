@@ -26,6 +26,7 @@ module.exports = {
   SLACK_API_TOKEN: process.env.SLACK_API_TOKEN || '',
   // global
   NODE_ENV: process.env.NODE_ENV || 'development',
-  DEBUG: process.env.DEBUG,
-  WORKERS: process.env.WEB_CONCURRENCY || 1
+  DEBUG: process.env.DEBUG || '',
+  WORKERS: process.env.WEB_CONCURRENCY || 1,
+  URL: process.env.URL || 'http://localhost:3000/'
 }

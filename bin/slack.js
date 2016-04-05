@@ -45,7 +45,7 @@ if (isWeekend()) {
   process.exit(0)
 }
 
-request('http://sbks-luncher.herokuapp.com/api/today', function (err, response, body) {
+request(config.URL + 'api/next', function (err, response, body) {
   if (err) {
     console.log('Error:', err)
     return
