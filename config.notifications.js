@@ -12,5 +12,13 @@ module.exports = [
   {
     user: '@ottokovarik',
     services: ['pub', 'tankovna', 'lokal-hamburk']
+  },
+  {
+    user: '@radim',
+    services: ['pub', 'tankovna', 'lokal-hamburk']
+  },
+  {
+    user: '@tomas.pokorny',
+    services: ['pub', 'tankovna', 'lokal-hamburk']
   }
 ]
