@@ -28,5 +28,9 @@ module.exports = [
   {
     user: '@zdenek.cejka',
     services: ['peters', 'pub', 'tankovna', 'u-sani', 'meat-market', 'lokal-hamburk']
+  },
+  {
+    user: '@mafo',
+    services: ['pub', 'tankovna', 'lokal-hamburk']
   }
 ]
