@@ -6,15 +6,15 @@
   "scripts": {
     "build:prod": "./node_modules/.bin/webpack --display-error-details --config webpack.config.prod.js",
     "build:dev": "./node_modules/.bin/webpack-dev-server --display-error-details --config webpack.config.dev.js",
-    "coverage:check": "./node_modules/.bin/istanbul check-coverage --functions 90",
+    "coverage:check": "./node_modules/.bin/babel-istanbul check-coverage --functions 90",
     "coverage:ci": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
-    "coverage:generate": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
+    "coverage:generate": "./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha -- -R spec --bail --check-leaks --compilers js:babel-register test/**/*.spec.js",
     "lint": "./node_modules/.bin/eslint lib server service client test",
     "service": "node service.js",
     "server": "node server.js",
     "test": "npm run lint && npm run coverage:generate && npm run coverage:check",
     "test:ci": "npm run lint && npm run coverage:generate && npm run coverage:ci && npm run coverage:check",
-    "test:mocha": "./node_modules/.bin/mocha -R spec --bail --check-leaks test/**/*.spec.js"
+    "test:mocha": "./node_modules/.bin/mocha -R spec --bail --check-leaks --compilers js:babel-register test/**/*.spec.js"
   },
   "engines": {
     "node": "5.4.0"
@@ -55,18 +55,18 @@
     "x-ray": "^2.0.3"
   },
   "devDependencies": {
-    "codacy-coverage": "^1.1.3",
-    "babel-core": "^6.6.5",
-    "babel-eslint": "^5.0.0",
+    "babel-core": "^6.7.6",
+    "babel-eslint": "^6.0.2",
+    "babel-istanbul": "^0.7.0",
     "babel-loader": "^6.2.4",
-    "babel-plugin-transform-runtime": "^6.6.0",
+    "babel-plugin-transform-runtime": "^6.7.5",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-react": "^6.5.0",
-    "babel-register": "^6.6.5",
-    "eslint": "^2.3.0",
-    "eslint-plugin-react": "^4.2.0",
+    "babel-register": "^6.7.2",
+    "codacy-coverage": "^1.1.3",
+    "eslint": "^2.7.0",
+    "eslint-plugin-react": "^4.3.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "react-hot-loader": "^1.3.0",
     "webpack": "^1.12.14",

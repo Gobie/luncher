@@ -1,6 +1,15 @@
 {
+  "extends": "eslint:recommended",
   "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "plugins": [
+    "react"
+  ],
   "rules": {
-    "strict": 0
+    "no-console": 0
   }
 }
