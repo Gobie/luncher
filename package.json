@@ -8,7 +8,7 @@
     "build:dev": "./node_modules/.bin/webpack-dev-server --display-error-details --config webpack.config.dev.js",
     "coverage:check": "./node_modules/.bin/babel-istanbul check-coverage --functions 90",
     "coverage:ci": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
-    "coverage:generate": "./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha -- -R spec --bail --check-leaks --compilers js:babel-register test/**/*.spec.js",
+    "coverage:generate": "./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
     "lint": "./node_modules/.bin/eslint lib server service client test",
     "service": "node service.js",
     "server": "node server.js",
