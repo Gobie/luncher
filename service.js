@@ -5,21 +5,21 @@ var throng = require('throng')
 
 function start(workerId) {
   var tv4 = require('tv4')
+  var winston = require('winston')
   var serviceSchema = require('./lib/schema/service')
-  var bus = require('./lib/bus')(config)
-  var app = require('./service/middleware/app')(config)
+  var bus = require('./lib/bus')(config, winston)
+  var app = require('./service/middleware/app')(config, winston)
 
   var channelWrapper = bus.server('service.menu', function (msg, data) {
     var validate = function (err, res) {
-
       if (err) {
-        console.error(data, err.stack || err)
+        winston.error('SERVICE: error', data, err.stack || err)
         return {error: String(err)}
       }
 
       var result = tv4.validateResult(res, serviceSchema.response, true, true)
       if (!result.valid) {
-        console.error(data, result)
+        winston.error('SERVICE: schema validation failed', data, result)
         return {error: result}
       }
 
@@ -41,7 +41,7 @@ function start(workerId) {
   })
 
   channelWrapper.waitForConnect().then(function () {
-    console.log('service worker', workerId, 'is listening')
+    winston.info('SERVICE: worker', workerId, 'is listening')
   })
 }
 

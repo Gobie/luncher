@@ -2,6 +2,7 @@
 
 var _ = require('lodash')
 var moment = require('moment')
+var winston = require('winston')
 var request = require('request')
 var WebClient = require('@slack/client').WebClient
 var config = require('../config')
@@ -14,12 +15,12 @@ var isWeekend = function () {
 
 var postMessageHandler = function (err, info) {
   if (err) {
-    console.log('Error:', err)
+    winston.error('SLACK: postMessage failed:', err)
     return
   }
 
   if (info && !info.ok) {
-    console.log('Slack error:', info.error)
+    winston.error('SLACK: invalid postMessage response:', info)
   }
 }
 
@@ -58,7 +59,7 @@ if (isWeekend()) {
 
 request(config.URL + 'api/next', function (err, response, body) {
   if (err) {
-    console.log('Error:', err)
+    winston.error('SLACK: request failed', err)
     return
   }
 
@@ -66,7 +67,7 @@ request(config.URL + 'api/next', function (err, response, body) {
   try {
     json = JSON.parse(body)
   } catch (e) {
-    console.log('JSON error:', err)
+    winston.error('SLACK: invalid JSON', e, body)
     return
   }
 

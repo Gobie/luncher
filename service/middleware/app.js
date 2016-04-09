@@ -4,8 +4,8 @@ var ware = require('ware')
 var cacheFactory = require('./cache')
 var hubFactory = require('./hub')
 
-module.exports = function (config) {
-  var cache = cacheFactory(config)
+module.exports = function (config, winston) {
+  var cache = cacheFactory(config, winston)
   var hub = hubFactory(config)
 
   return {

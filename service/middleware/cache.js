@@ -3,7 +3,7 @@
 var memjs = require('memjs')
 var crypto = require('crypto')
 
-module.exports = function (config) {
+module.exports = function (config, winston) {
   if (!config.MEMCAHE_SERVERS) {
     throw new Error('MEMCAHE_SERVERS config variable must be set')
   }
@@ -22,7 +22,7 @@ module.exports = function (config) {
     var key = createKey(req.data)
     client.get(key, function (err, val) {
       if (err) {
-        console.error('CACHE failed to retrieve', key, err)
+        winston.error('CACHE: failed to retrieve', key, err)
         next()
         return
       }
@@ -45,7 +45,7 @@ module.exports = function (config) {
     var key = createKey(req.data)
     client.set(key, JSON.stringify(res.data), function (err, val) {
       if (err || !val) {
-        console.error('CACHE failed to save', key, err, val)
+        winston.error('CACHE: failed to save', key, err, val)
       }
     }, config.CACHE_EXPIRATION)
 
