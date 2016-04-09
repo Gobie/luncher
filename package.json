@@ -4,17 +4,17 @@
   "description": "Accessible lunch menus",
   "main": "server.js",
   "scripts": {
-    "build:prod": "webpack --display-error-details --config webpack.config.prod.js",
-    "build:dev": "webpack-dev-server --display-error-details --config webpack.config.dev.js",
-    "coverage:check": "istanbul check-coverage --functions 90",
+    "build:prod": "./node_modules/.bin/webpack --display-error-details --config webpack.config.prod.js",
+    "build:dev": "./node_modules/.bin/webpack-dev-server --display-error-details --config webpack.config.dev.js",
+    "coverage:check": "./node_modules/.bin/istanbul check-coverage --functions 90",
     "coverage:ci": "cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
-    "coverage:generate": "istanbul cover _mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
-    "lint": "eslint lib server service client test",
+    "coverage:generate": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec --bail --check-leaks test/**/*.spec.js",
+    "lint": "./node_modules/.bin/eslint lib server service client test",
     "service": "node service.js",
     "server": "node server.js",
     "test": "npm run lint && npm run coverage:generate && npm run coverage:check",
     "test:ci": "npm run lint && npm run coverage:generate && npm run coverage:ci && npm run coverage:check",
-    "test:mocha": "mocha -R spec --bail --check-leaks test/**/*.spec.js"
+    "test:mocha": "./node_modules/.bin/mocha -R spec --bail --check-leaks test/**/*.spec.js"
   },
   "engines": {
     "node": "5.4.0"
