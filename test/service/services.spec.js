@@ -1,6 +1,6 @@
 'use strict'
 
-var rootPath = '../../../'
+var rootPath = '../../'
 var moment = require('moment')
 var tv4 = require('tv4')
 var ware = require('ware')
@@ -13,7 +13,7 @@ var verifyResponse = function (done) {
       return done(err)
     }
 
-    var result = tv4.validateResult(res, serviceSchema.serviceMenu, true, true)
+    var result = tv4.validateResult(res, serviceSchema.menu, true, true)
     if (!result.valid) {
       return done(result)
     }
@@ -54,7 +54,7 @@ var createServiceTests = function (serviceName, middleware) {
 describe('menu services', function () {
   for (var i = 0; i < config.SERVICES.length; i++) {
     var serviceName = config.SERVICES[i].name
-    var service = require(rootPath + 'lib/service/' + serviceName)()
+    var service = require(rootPath + 'service/scrapper/' + serviceName)()
     var middleware = ware().use(service.middleware)
 
     createServiceTests(serviceName, middleware)

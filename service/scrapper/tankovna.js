@@ -1,7 +1,7 @@
 'use strict'
 
 var _ = require('lodash')
-var zomato = require('./middleware/zomato')
+var zomato = require('../middleware/zomato')
 var helpers = require('../helpers')
 
 module.exports = function () {

@@ -7,7 +7,7 @@ function start(workerId) {
   var tv4 = require('tv4')
   var serviceSchema = require('./lib/schema/service')
   var bus = require('./lib/bus')(config)
-  var app = require('./lib/service/middleware/app')(config)
+  var app = require('./service/middleware/app')(config)
 
   var channelWrapper = bus.server('service.menu', function (msg, data) {
     var validate = function (err, res) {
@@ -17,7 +17,7 @@ function start(workerId) {
         return {error: String(err)}
       }
 
-      var result = tv4.validateResult(res, serviceSchema.serviceResponse, true, true)
+      var result = tv4.validateResult(res, serviceSchema.response, true, true)
       if (!result.valid) {
         console.error(data, result)
         return {error: result}

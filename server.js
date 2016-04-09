@@ -30,8 +30,8 @@ function start(workerId) {
     .use(morgan(config.LOGGING))
     .use(compression())
     .use(helmet())
-    .use('/api', require('./lib/routes/api/index')(express.Router(), bus, config))
-    .get('/', require('./lib/routes/index')(bus, config))
+    .use('/api', require('./server/route/api/index')(express.Router(), bus, config))
+    .get('/', require('./server/route/index')(bus, config))
     .use(errorHandler)
     .listen(config.PORT, onListen)
 }
