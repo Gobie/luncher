@@ -7,23 +7,17 @@ function start(workerId) {
   var tv4 = require('tv4')
   var serviceSchema = require('./lib/schema/service')
   var bus = require('./lib/bus')(config)
-  var middleware = require('ware')()
-  var cache = require('./lib/service/middleware/cache')(config)
-  var service = require('./lib/service/' + config.SERVICE.name)()
+  var app = require('./lib/service/middleware/app')(config)
 
-  middleware
-    .use(cache.middleware.retrieve)
-    .use(service.middleware)
-    .use(cache.middleware.save)
-
-  var channelWrapper = bus.server('service.menu.' + config.SERVICE.name, function (msg, data) {
+  var channelWrapper = bus.server('service.menu', function (msg, data) {
     var validate = function (err, res) {
+
       if (err) {
         console.error(data, err.stack || err)
         return {error: String(err)}
       }
 
-      var result = tv4.validateResult(res, serviceSchema, true, true)
+      var result = tv4.validateResult(res, serviceSchema.serviceResponse, true, true)
       if (!result.valid) {
         console.error(data, result)
         return {error: result}
@@ -36,8 +30,6 @@ function start(workerId) {
       channelWrapper.sendToQueue(
         msg.properties.replyTo,
         {
-          name: config.SERVICE.name,
-          title: config.SERVICE.title,
           data: validate(err, res ? res.data : null),
           timestamp: Date.now()
         },
@@ -45,7 +37,7 @@ function start(workerId) {
       )
     }
 
-    middleware.run({data: data}, {data: null, send: next}, next)
+    app.middleware.run({data: data}, {data: [], send: next}, next)
   })
 
   channelWrapper.waitForConnect().then(function () {

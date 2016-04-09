@@ -13,7 +13,7 @@ var verifyResponse = function (done) {
       return done(err)
     }
 
-    var result = tv4.validateResult(res.data, serviceSchema, true, true)
+    var result = tv4.validateResult(res, serviceSchema.serviceMenu, true, true)
     if (!result.valid) {
       return done(result)
     }
@@ -28,7 +28,7 @@ var createServiceTests = function (serviceName, middleware) {
 
     it('can correctly parse lunch menu', function (done) {
       var req = {data: {}}
-      var res = {data: null}
+      var res = {menu: {}}
       middleware.run(req, res, verifyResponse(done))
     })
 
@@ -36,7 +36,7 @@ var createServiceTests = function (serviceName, middleware) {
       var req = {data: {
         date: moment.utc().format('YYYY-MM-DD')
       }}
-      var res = {data: null}
+      var res = {menu: {}}
       middleware.run(req, res, verifyResponse(done))
     })
 
@@ -45,7 +45,7 @@ var createServiceTests = function (serviceName, middleware) {
         date: moment.utc().format('YYYY-MM-DD'),
         next: true
       }}
-      var res = {data: null}
+      var res = {menu: {}}
       middleware.run(req, res, verifyResponse(done))
     })
   })
