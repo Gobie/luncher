@@ -36,6 +36,6 @@ function start(workerId) {
     .listen(config.PORT, onListen)
 }
 
-throng(start, {
+throng({
   workers: config.WORKERS
-})
+}, start)

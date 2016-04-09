@@ -45,6 +45,6 @@ function start(workerId) {
   })
 }
 
-throng(start, {
+throng({
   workers: config.WORKERS
-})
+}, start)
