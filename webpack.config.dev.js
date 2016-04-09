@@ -38,31 +38,31 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loader: 'react-hot!babel-loader'
+      loader: 'react-hot!babel'
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      loader: ExtractTextPlugin.extract('style', 'css')
     }, {
       test: /\.styl/,
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')
+      loader: ExtractTextPlugin.extract('style', 'css!stylus')
     }, {
       test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=8192'
+      loader: 'url?limit=8192'
     }, {
       test: /bootstrap\/js\//,
       loader: 'imports?jQuery=jquery'
     }, {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "url?limit=10000&mimetype=application/font-woff"
+      loader: 'url?limit=10000&mimetype=application/font-woff'
     }, {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "url?limit=10000&mimetype=application/octet-stream"
+      loader: 'url?limit=10000&mimetype=application/octet-stream'
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "file"
+      loader: 'file'
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "url?limit=10000&mimetype=image/svg+xml"
+      loader: 'url?limit=10000&mimetype=image/svg+xml'
     }]
   },
 
