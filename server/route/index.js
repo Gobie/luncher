@@ -1,41 +1,35 @@
 'use strict'
 
-var _ = require('lodash')
-var uuid = require('uuid')
-var moment = require('moment')
+let _ = require('lodash')
+let uuid = require('uuid')
+let moment = require('moment')
 
-module.exports = function (bus, config) {
-  return function (req, res) {
-    var options = {}
+module.exports = (bus, config) => {
+  return (req, res) => {
+    let options = {}
     _.defaults(options, req.query, {
-      services: _.map(config.SERVICES, function (service) {
-        return service.name
-      }),
+      services: _.map(config.SERVICES, (service) => service.name),
       date: moment.utc().format('YYYY-MM-DD')
     })
 
-    var received = []
-    var timer = null
-    var channelWrapper = null
+    let timer = null
+    let channelWrapper = null
 
-    var respond = _.once(function () {
+    let respond = _.once((received) => {
       clearTimeout(timer)
       channelWrapper.close()
       res.send(received)
     })
 
-    channelWrapper = bus.client(function (msg, content) {
-      received = content.data
-      return respond()
-    })
+    channelWrapper = bus.client((msg, content) => respond(content.data))
 
-    channelWrapper.waitForConnect().then(function () {
+    channelWrapper.waitForConnect().then(() => {
       channelWrapper.sendToQueue('service.menu', options, {
         correlationId: uuid.v4(),
         replyTo: channelWrapper.replyTo
       })
 
-      timer = setTimeout(respond, config.REQUEST_TIMEOUT)
+      timer = setTimeout(() => respond([]), config.REQUEST_TIMEOUT)
     })
   }
 }

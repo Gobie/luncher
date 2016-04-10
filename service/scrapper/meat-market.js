@@ -1,42 +1,38 @@
 'use strict'
 
-var _ = require('lodash')
-var zomato = require('../middleware/zomato')
-var helpers = require('../helpers')
+let _ = require('lodash')
+let zomato = require('../middleware/zomato')
+let helpers = require('../helpers')
 
-module.exports = function () {
-  var zo = zomato()
+module.exports = () => {
+  let zo = zomato()
 
-  var mapItem = function (item) {
-    var title = _.trim(item.title)
-    var amount = title.match(/\d+g/)
-    title = title.replace(/\d+g |^\- */g, '')
-    amount = amount ? amount[0] : '1ks'
+  let mapItem = (item) => {
+    let title = _.trim(item.title)
+    let amount = title.match(/\d+g/)
     return {
-      item: title,
+      item: title.replace(/\d+g |^\- */g, ''),
       price: _.trim(item.price),
-      amount: amount
+      amount: amount ? amount[0] : '1ks'
     }
   }
 
-  var filter = function (menu) {
-    return !menu.item.match(/na tento týden|hlavní chod|polévky|^Dobrou chuť|^!!!/gi)
-  }
+  let noHeaders = (menu) => !menu.item.match(/na tento týden|hlavní chod|polévky|^Dobrou chuť|^!!!/gi)
 
-  var processMenu = function (obj, options, next) {
-    var out = []
-    for (var i = 0; i < obj.menus.length; i++) {
-      var menu = obj.menus[i]
+  let processMenu = (obj, options, next) => {
+    let out = []
+    for (let i = 0; i < obj.menus.length; i++) {
+      let menu = obj.menus[i]
       out.push({
         date: zo.parseDate(_.trim(menu.day)).format('YYYY-MM-DD'),
-        items: _.filter(_.map(menu.items, mapItem), filter)
+        items: _.filter(_.map(menu.items, mapItem), noHeaders)
       })
     }
 
     next(null, out)
   }
 
-  var url = 'https://www.zomato.com/cs/praha/presto-meat-market-karl%C3%ADn-praha-8/menu'
+  let url = 'https://www.zomato.com/cs/praha/presto-meat-market-karl%C3%ADn-praha-8/menu'
 
   return {
     middleware: zo.middleware(url, helpers.createProcessMenu(processMenu))

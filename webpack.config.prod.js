@@ -4,8 +4,8 @@
  * This file is set up for serving the distribution version. It will be compiled to dist/ by default
  */
 
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+let webpack = require('webpack');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 

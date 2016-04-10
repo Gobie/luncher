@@ -2,9 +2,9 @@
 
 require('dotenv').config({silent: true})
 
-var _ = require('lodash')
-var services = require('./config.services.js')
-var notifications = require('./config.notifications.js')
+let _ = require('lodash')
+let services = require('./config.services.js')
+let notifications = require('./config.notifications.js')
 
 module.exports = {
   // addons

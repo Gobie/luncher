@@ -1,12 +1,12 @@
 'use strict'
 
-var ware = require('ware')
-var cacheFactory = require('./cache')
-var hubFactory = require('./hub')
+let ware = require('ware')
+let cacheFactory = require('./cache')
+let hubFactory = require('./hub')
 
-module.exports = function (config, winston) {
-  var cache = cacheFactory(config, winston)
-  var hub = hubFactory(config)
+module.exports = (config, winston) => {
+  let cache = cacheFactory(config, winston)
+  let hub = hubFactory(config)
 
   return {
     middleware: ware()

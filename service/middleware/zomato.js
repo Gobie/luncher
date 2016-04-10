@@ -1,13 +1,13 @@
 'use strict'
 
-var _ = require('lodash')
-var moment = require('moment')
-var xray = require('x-ray')
+let _ = require('lodash')
+let moment = require('moment')
+let xray = require('x-ray')
 
-module.exports = function () {
-  var x = xray()
+module.exports = () => {
+  let x = xray()
 
-  var monthMap = {
+  let monthMap = {
     leden: '01',
     únor: '02',
     březen: '03',
@@ -22,35 +22,30 @@ module.exports = function () {
     prosinec: '12'
   }
 
-  var monthReplace = function (replacer) {
-    return monthMap[replacer]
-  }
+  let monthReplace = (replacer) => monthMap[replacer]
 
-  var parseDate = function (dateString) {
-    dateString = dateString
+  let parseDate = (dateString) => {
+    let date = dateString
       .replace(/^.+,\s+/, '')
       .replace(' (dnes)', '')
       .replace(new RegExp(_.keys(monthMap).join('|')), monthReplace)
-    return moment(dateString, 'D M')
+    return moment(date, 'D M')
   }
 
-  var mapItem = function (item) {
-    var title = _.trim(item.title).replace(/\s+/g, ' ')
-    var amount = title.match(/\d+g/)
-    amount = amount ? amount[0] : '1ks'
+  let mapItem = (item) => {
+    let title = _.trim(item.title).replace(/\s+/g, ' ')
+    let amount = title.match(/\d+g/)
     return {
       item: title,
       price: _.trim(item.price),
-      amount: amount
+      amount: amount ? amount[0] : '1ks'
     }
   }
 
-  var middleware = function (url, processMenuFn) {
-    return function (req, res, next) {
-      var options = {}
-      _.defaults(options, req.data, {
-        url: url
-      })
+  let middleware = (url, processMenuFn) => {
+    return (req, res, next) => {
+      let options = {}
+      _.defaults(options, req.data, {url})
 
       x(options.url, '#menu-preview', {
         menus: x('div.tmi-group', [{
@@ -64,9 +59,5 @@ module.exports = function () {
     }
   }
 
-  return {
-    parseDate: parseDate,
-    mapItem: mapItem,
-    middleware: middleware
-  }
+  return {parseDate, mapItem, middleware}
 }

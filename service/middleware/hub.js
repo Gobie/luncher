@@ -1,22 +1,22 @@
 'use strict'
 
-var async = require('async')
+let async = require('async')
 
-module.exports = function (config) {
-  var services = {}
-  for (var i = 0; i < config.SERVICES.length; i++) {
+module.exports = (config) => {
+  let services = {}
+  for (let i = 0; i < config.SERVICES.length; i++) {
     services[config.SERVICES[i].name] = {
       name: config.SERVICES[i].name,
       title: config.SERVICES[i].title,
-      middleware: require('../scrapper/' + config.SERVICES[i].name)().middleware
+      middleware: require(`../scrapper/${config.SERVICES[i].name}`)().middleware
     }
   }
 
-  var middleware = function (req, res, next) {
-    async.parallel(req.data.services.map(function (serviceName) {
-      return function (next) {
-        var service = services[serviceName]
-        var localRes = {
+  let middleware = (req, res, next) => {
+    async.parallel(req.data.services.map((serviceName) => {
+      return (next) => {
+        let service = services[serviceName]
+        let localRes = {
           name: service.name,
           title: service.title
         }
@@ -26,7 +26,5 @@ module.exports = function (config) {
     }), next)
   }
 
-  return {
-    middleware: middleware
-  }
+  return {middleware}
 }

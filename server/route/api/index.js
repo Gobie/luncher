@@ -1,23 +1,20 @@
 'use strict'
 
-var _ = require('lodash')
-var uuid = require('uuid')
-var moment = require('moment')
+let _ = require('lodash')
+let uuid = require('uuid')
+let moment = require('moment')
 
-var createRoute = function (bus, config, inputCb, outputCb) {
-  return function (req, res) {
-    var options = {}
+let createRoute = (bus, config, inputCb, outputCb) => {
+  return (req, res) => {
+    let options = {}
     _.defaults(options, req.query, {
-      services: _.map(config.SERVICES, function (service) {
-        return service.name
-      })
+      services: _.map(config.SERVICES, (service) => service.name)
     })
 
-    var received = []
-    var timer = null
-    var channelWrapper = null
+    let timer = null
+    let channelWrapper = null
 
-    var respond = _.once(function () {
+    let respond = _.once((received) => {
       clearTimeout(timer)
       timer = null
       channelWrapper.close()
@@ -25,63 +22,50 @@ var createRoute = function (bus, config, inputCb, outputCb) {
       res.send(outputCb(received))
     })
 
-    channelWrapper = bus.client(function (msg, content) {
-      received = content
-      return respond()
-    })
+    channelWrapper = bus.client((msg, content) => respond(content))
 
-    channelWrapper.waitForConnect().then(function () {
+    channelWrapper.waitForConnect().then(() => {
       channelWrapper.sendToQueue('service.menu', inputCb(options), {
         correlationId: uuid.v4(),
         replyTo: channelWrapper.replyTo
       })
 
-      timer = setTimeout(respond, config.REQUEST_TIMEOUT)
+      timer = setTimeout(() => respond([]), config.REQUEST_TIMEOUT)
     })
   }
 }
 
-var normalizeOptions = function (options, config) {
+let normalizeOptions = (options, config) => {
   options.date = options.date || moment.utc().format('YYYY-MM-DD')
   if (!moment(options.date, 'YYYY-MM-DD', true).isValid()) {
-    throw new Error('invalid date input' + options.date + ', required YYYY-MM-DD')
+    throw new Error(`invalid date input ${options.date}, required YYYY-MM-DD`)
   }
 
   options.services = Array.isArray(options.services) ? options.services : [options.services]
-  options.services = options.services.filter(function (serviceName) {
-    return Boolean(_.find(config.SERVICES, ['name', serviceName]))
-  })
+  options.services = options.services.filter((serviceName) => Boolean(_.find(config.SERVICES, ['name', serviceName])))
 
   return options
 }
 
-var formatOutput = function (output) {
-  if (output.error) {
-    return [
-      {error: output.error}
-    ]
-  }
+let formatOutput = (output) => output.error ? [{error: output.error}] : output.data
 
-  return output.data
-}
-
-module.exports = function (router, bus, config) {
-  router.get('/today', createRoute(bus, config, function (options) {
-    options = normalizeOptions(options, config)
+module.exports = (router, bus, config) => {
+  router.get('/today', createRoute(bus, config, (options) => {
+    let opts = normalizeOptions(options, config)
 
     return {
-      services: options.services,
-      date: options.date,
+      services: opts.services,
+      date: opts.date,
       next: false
     }
   }, formatOutput))
 
-  router.get('/next', createRoute(bus, config, function (options) {
-    options = normalizeOptions(options, config)
+  router.get('/next', createRoute(bus, config, (options) => {
+    let opts = normalizeOptions(options, config)
 
     return {
-      services: options.services,
-      date: options.date,
+      services: opts.services,
+      date: opts.date,
       next: true
     }
   }, formatOutput))

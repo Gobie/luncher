@@ -1,18 +1,15 @@
 'use strict'
 
-var _ = require('lodash')
-var moment = require('moment')
+let _ = require('lodash')
+let moment = require('moment')
 
-var handleOptions = function (wholeMenu, options) {
-  var menu = wholeMenu
+let handleOptions = (wholeMenu, options) => {
+  let menu = wholeMenu
+
   if (options.date) {
-    menu = _.find(menu, function (day) {
-      if (day.date === options.date) {
-        return true
-      }
-      if (options.next) {
-        return moment(options.date).isBefore(day.date)
-      }
+    menu = _.find(menu, (day) => {
+      if (day.date === options.date) return true
+      if (options.next) return moment(options.date).isBefore(day.date)
       return false
     })
     menu = menu ? [menu] : []
@@ -21,17 +18,13 @@ var handleOptions = function (wholeMenu, options) {
   return menu
 }
 
-var createProcessMenu = function (processMenu) {
-  return function (options, res, next) {
-    return function (err, obj) {
-      if (err) {
-        return next(err)
-      }
+let createProcessMenu = (processMenu) => {
+  return (options, res, next) => {
+    return (err, obj) => {
+      if (err) return next(err)
 
-      processMenu(obj, options, function (err, menu) {
-        if (err) {
-          return next(err)
-        }
+      processMenu(obj, options, (err, menu) => {
+        if (err) return next(err)
 
         res.menu = handleOptions(menu, options)
         next()
@@ -40,6 +33,4 @@ var createProcessMenu = function (processMenu) {
   }
 }
 
-module.exports = {
-  createProcessMenu: createProcessMenu
-}
+module.exports = {createProcessMenu}
