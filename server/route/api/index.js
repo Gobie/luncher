@@ -7,9 +7,9 @@ let moment = require('moment')
 let createRoute = (bus, config, inputCb, outputCb) => {
   return (req, res) => {
     let options = {}
-    _.defaults(options, req.query, {
+    Object.assign(options, {
       services: _.map(config.SERVICES, (service) => service.name)
-    })
+    }, req.query)
 
     let timer = null
     let channelWrapper = null

@@ -1,6 +1,5 @@
 'use strict'
 
-let _ = require('lodash')
 let xray = require('x-ray')
 let moment = require('moment')
 let helpers = require('../helpers')
@@ -33,9 +32,9 @@ module.exports = () => {
 
   let middleware = (req, res, next) => {
     let options = {}
-    _.defaults(options, req.data, {
+    Object.assign(options, {
       url: 'http://www.thepub.cz/praha-8/poledni-menu/'
-    })
+    }, req.data)
 
     x(options.url, 'div.content', {
       menus: x('table.menu', [{

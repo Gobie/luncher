@@ -7,10 +7,10 @@ let moment = require('moment')
 module.exports = (bus, config) => {
   return (req, res) => {
     let options = {}
-    _.defaults(options, req.query, {
+    Object.assign(options, {
       services: _.map(config.SERVICES, (service) => service.name),
       date: moment.utc().format('YYYY-MM-DD')
-    })
+    }, req.query)
 
     let timer = null
     let channelWrapper = null

@@ -45,7 +45,7 @@ module.exports = () => {
   let middleware = (url, processMenuFn) => {
     return (req, res, next) => {
       let options = {}
-      _.defaults(options, req.data, {url})
+      Object.assign(options, {url}, req.data)
 
       x(options.url, '#menu-preview', {
         menus: x('div.tmi-group', [{

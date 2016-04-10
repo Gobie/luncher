@@ -52,9 +52,9 @@ module.exports = () => {
 
   let middleware = (req, res, next) => {
     let options = {}
-    _.defaults(options, req.data, {
+    Object.assign(options, {
       url: 'http://lokal-hamburk.ambi.cz/cz/menu?id=11615'
-    })
+    }, req.data)
 
     x(options.url, 'div.menu', {
       day: 'h2',
