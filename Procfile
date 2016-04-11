@@ -1,2 +1,2 @@
-web: NODE_ENV=production npm run server
-worker: NODE_ENV=production npm run service
+web: npm run server
+worker: npm run service
