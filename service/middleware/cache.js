@@ -12,7 +12,7 @@ module.exports = (config, winston) => {
   })
 
   let createKey = (data) => {
-    let key = `${config.SERVICE.name}_${JSON.stringify(data)}`
+    let key = JSON.stringify(data)
     return crypto.createHash('md5').update(key).digest('hex')
   }
 

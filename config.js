@@ -14,9 +14,6 @@ module.exports = {
   MEMCAHE_PASSWORD: process.env.MEMCACHEDCLOUD_PASSWORD,
   // services
   SERVICES: services,
-  SERVICE: _.find(services, function (service) {
-    return service.name === process.env.SERVICE_NAME
-  }),
   CACHE_EXPIRATION: 4 * 3600,
   CACHE_ENABLED: process.env.NODE_ENV === 'production',
   // server
