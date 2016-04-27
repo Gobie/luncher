@@ -23,9 +23,11 @@ module.exports = () => {
   let processMenu = (obj, options, next) => {
     let items = []
 
-    // only interested in Polévky (1), Lehká a bezmasá jídla (2), Speciality Lokálu (3), Hlavní jídla (4)
-    for (let j = 1; j < 5; j++) {
-      let lunchMenu = obj.menus[j].menu
+    // only interested in Polévky (1), Hlavní jídla (4)
+    let required = [1, 4]
+
+    for (let j = 0; j < required.length; j++) {
+      let lunchMenu = obj.menus[required[j]].menu
       for (let i = 0; i < lunchMenu.length; i++) {
         if (!lunchMenu[i].item) continue // not interested in headers
 
@@ -35,7 +37,7 @@ module.exports = () => {
           amount: getAmount(lunchMenu[i])
         }
         if (item.item.match(/^Expres/)) {
-          items.unshift(item) // Expres first
+          items.unshift(item) // Express first
         } else {
           items.push(item)
         }
