@@ -32,5 +32,13 @@ module.exports = [
   {
     user: '@mafo',
     services: ['pub', 'tankovna', 'lokal-hamburk']
+  },
+  {
+    user: '@martin.kadlec',
+    services: ['pub', 'tankovna', 'lokal-hamburk']
+  },
+  {
+    user: '@adamsobotka',
+    services: ['pub', 'tankovna', 'lokal-hamburk']
   }
 ]
