@@ -23,18 +23,17 @@ module.exports = () => {
   let processMenu = (obj, options, next) => {
     let items = []
 
-    // only interested in Polévky (1), Hlavní jídla (4)
-    let required = [1, 4]
+    for (let j = 0; j < obj.menus.length; j++) {
+      let section = obj.menus[j]
+      if (section.name !== 'Polévky' && section.name !== 'Hlavní jídla') continue // only in these sections we are interested
 
-    for (let j = 0; j < required.length; j++) {
-      let lunchMenu = obj.menus[required[j]].menu
-      for (let i = 0; i < lunchMenu.length; i++) {
-        if (!lunchMenu[i].item) continue // not interested in headers
+      for (let i = 0; i < section.menu.length; i++) {
+        if (!section.menu[i].item) continue // not interested in headers
 
         let item = {
-          item: getItem(lunchMenu[i]),
-          price: lunchMenu[i].price,
-          amount: getAmount(lunchMenu[i])
+          item: getItem(section.menu[i]),
+          price: section.menu[i].price,
+          amount: getAmount(section.menu[i])
         }
         if (item.item.match(/^Expres/)) {
           items.unshift(item) // Express first
@@ -61,6 +60,7 @@ module.exports = () => {
     x(options.url, 'div.menu', {
       day: 'h2',
       menus: x('table.menu-list', [{
+        name: 'h2',
         menu: x('tr', [{
           item: 'td.food',
           allergens: 'span.allergens',
