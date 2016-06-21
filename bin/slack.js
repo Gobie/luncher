@@ -1,5 +1,6 @@
 'use strict'
 
+let _ = require('lodash')
 let moment = require('moment')
 let winston = require('winston')
 let request = require('request')
@@ -17,14 +18,22 @@ let postMessageHandler = (err, info) => {
   if (info && !info.ok) return winston.error('SLACK: invalid postMessage response:', info)
 }
 
-let prepareMessage = (json) => {
-  let message = ''
-  for (let i = 0; i < json.length; i++) {
-    if (!json[i].menu[0]) continue
+let onlySubscribed = (allowed) => (service) => allowed.indexOf(service.name) !== -1
+let onlyUnsubscribed = (allowed) => (service) => allowed.indexOf(service.name) === -1
+let getTitle = (service) => service.title
 
-    message += `*${json[i].title}*\n`
-    for (let j = 0; j < json[i].menu[0].items.length; j++) {
-      let menuItem = json[i].menu[0].items[j]
+let prepareMessage = (json, subscribedServices) => {
+  let allServices = config.SERVICES
+  let availableServices = _.map(_.filter(allServices, onlyUnsubscribed(subscribedServices)), getTitle)
+  let message = 'Other available restaurants: ' + availableServices.join(', ') + '\n\n'
+
+  let jsonMenus = _.filter(json, onlySubscribed(subscribedServices))
+  for (let i = 0; i < jsonMenus.length; i++) {
+    if (!jsonMenus[i].menu[0]) continue
+
+    message += `*${jsonMenus[i].title}*\n`
+    for (let j = 0; j < jsonMenus[i].menu[0].items.length; j++) {
+      let menuItem = jsonMenus[i].menu[0].items[j]
       message += `- ${menuItem.item} (${menuItem.amount}) _${menuItem.price}_\n`
     }
     message += '\n'
@@ -32,8 +41,6 @@ let prepareMessage = (json) => {
 
   return message
 }
-
-let only = (allowed) => (place) => allowed.indexOf(place.name) !== -1
 
 // don't bother on weekends
 if (isWeekend()) process.exit(0)
@@ -53,7 +60,7 @@ request(config.URL + 'api/next', (err, response, body) => {
   }
 
   for (let i = 0; i < config.NOTIFICATIONS.length; i++) {
-    let menu = json.filter(only(config.NOTIFICATIONS[i].services))
-    web.chat.postMessage(config.NOTIFICATIONS[i].user, prepareMessage(menu), options, postMessageHandler)
+    let message = prepareMessage(json, config.NOTIFICATIONS[i].services)
+    web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, postMessageHandler)
   }
 })
