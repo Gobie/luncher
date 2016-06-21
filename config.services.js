@@ -24,5 +24,9 @@ module.exports = [
   {
     name: 'lokal-hamburk',
     title: 'Lokál Hamburk'
+  },
+  {
+    name: 'u-zabranskych',
+    title: 'U Zábranských'
   }
 ]
