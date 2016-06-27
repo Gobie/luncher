@@ -6,10 +6,6 @@ module.exports = [
     title: 'Peter´s Burger Pub'
   },
   {
-    name: 'pub',
-    title: 'The PUB'
-  },
-  {
     name: 'meat-market',
     title: 'Presto meat market'
   },
