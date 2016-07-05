@@ -29,13 +29,17 @@ let prepareMessage = (json, subscribedServices) => {
 
   let jsonMenus = _.filter(json, onlySubscribed(subscribedServices))
   for (let i = 0; i < jsonMenus.length; i++) {
-    if (!jsonMenus[i].menu[0]) continue
-
     message += `*${jsonMenus[i].title}*\n`
-    for (let j = 0; j < jsonMenus[i].menu[0].items.length; j++) {
-      let menuItem = jsonMenus[i].menu[0].items[j]
-      message += `- ${menuItem.item} (${menuItem.amount}) _${menuItem.price}_\n`
+
+    if (!jsonMenus[i].menu[0]) {
+      message += 'No menu was found today, check it out yourself and report bugs to @michal.brasna!\n'
+    } else {
+      for (let j = 0; j < jsonMenus[i].menu[0].items.length; j++) {
+        let menuItem = jsonMenus[i].menu[0].items[j]
+        message += `- ${menuItem.item} (${menuItem.amount}) _${menuItem.price}_\n`
+      }
     }
+
     message += '\n'
   }
 
