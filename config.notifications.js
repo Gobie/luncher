@@ -3,7 +3,7 @@
 module.exports = [
   {
     user: '@michal.brasna',
-    services: ['tankovna', 'lokal-hamburk']
+    services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
     user: '@jan.pavlovsky',
@@ -31,7 +31,7 @@ module.exports = [
   },
   {
     user: '@mafo',
-    services: ['tankovna', 'lokal-hamburk']
+    services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
     user: '@martin.kadlec',
