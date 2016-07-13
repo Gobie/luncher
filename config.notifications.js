@@ -23,11 +23,11 @@ module.exports = [
   },
   {
     user: '@radek.carda',
-    services: ['peters', 'tankovna', 'u-sani', 'meat-market', 'lokal-hamburk']
+    services: ['peters', 'globus', 'meat-market', 'lokal-hamburk']
   },
   {
     user: '@zdenek.cejka',
-    services: ['peters', 'tankovna', 'u-sani', 'meat-market', 'lokal-hamburk']
+    services: ['peters', 'tankovna', 'u-sani', 'meat-market', 'globus']
   },
   {
     user: '@mafo',
