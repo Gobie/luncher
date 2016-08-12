@@ -47,7 +47,7 @@ let normalizeOptions = (options, config) => {
   return options
 }
 
-let formatOutput = (output) => output.error ? [{error: output.error}] : output.data
+let formatOutput = (output) => output.data.error ? [{error: output.data.error}] : output.data
 
 module.exports = (router, bus, config) => {
   router.get('/today', createRoute(bus, config, (options) => {
