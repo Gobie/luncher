@@ -56,7 +56,7 @@ request(config.URL + 'api/next', (err, response, body) => {
   try {
     json = JSON.parse(body)
   } catch (e) {
-    return winston.error('SLACK: invalid JSON', e, body)
+    return winston.error('SLACK: invalid JSON', e, body, response.statusCode, response.statusMessage)
   }
 
   let options = {
