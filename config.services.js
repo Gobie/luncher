@@ -28,5 +28,9 @@ module.exports = [
   {
     name: 'globus',
     title: 'Globus'
+  },
+  {
+    name: 'u-tunelu',
+    title: 'Hostinec U Tunelu'
   }
 ]
