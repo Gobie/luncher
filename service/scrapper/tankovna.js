@@ -12,7 +12,7 @@ module.exports = () => {
     let amount = title.match(/\d+g/)
     return {
       item: title,
-      price: prices[index],
+      price: prices[index] || 'N/A Kč',
       amount: amount ? amount[0] : '1ks'
     }
   }
