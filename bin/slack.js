@@ -1,6 +1,7 @@
 'use strict'
 
 let _ = require('lodash')
+let async = require('async')
 let moment = require('moment')
 let winston = require('winston')
 let request = require('request')
@@ -19,12 +20,11 @@ let postMessageHandler = (err, info) => {
 }
 
 let onlySubscribed = (allowed) => (service) => allowed.indexOf(service.name) !== -1
-let onlyUnsubscribed = (allowed) => (service) => allowed.indexOf(service.name) === -1
 let getTitle = (service) => service.title
 
 let prepareMessage = (json, subscribedServices) => {
   let allServices = config.SERVICES
-  let availableServices = _.map(_.filter(allServices, onlyUnsubscribed(subscribedServices)), getTitle)
+  let availableServices = _.map(_.reject(allServices, onlySubscribed(subscribedServices)), getTitle)
   let message = 'Other available restaurants: ' + availableServices.join(', ') + '\n\n'
 
   let jsonMenus = _.filter(json, onlySubscribed(subscribedServices))
@@ -46,25 +46,48 @@ let prepareMessage = (json, subscribedServices) => {
   return message
 }
 
+let notifyClients = (next) => {
+  request(config.URL + 'api/next', (err, response, body) => {
+    if (err) {
+      winston.error('SLACK: request failed', err)
+      return next(err)
+    }
+
+    let json = null
+    try {
+      json = JSON.parse(body)
+    } catch (e) {
+      winston.error('SLACK: invalid JSON', e, body, response.statusCode, response.statusMessage)
+      return next(e)
+    }
+
+    let options = {
+      username: 'sbks-luncher'
+    }
+
+    try {
+      for (let i = 0; i < config.NOTIFICATIONS.length; i++) {
+        let message = prepareMessage(json, config.NOTIFICATIONS[i].services)
+        web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, postMessageHandler)
+      }
+    } catch (e) {
+      winston.error('SLACK: failed preparing message', e, json)
+      return next(e)
+    }
+
+    next()
+  })
+}
+
 // don't bother on weekends
 if (isWeekend()) process.exit(0)
 
-request(config.URL + 'api/next', (err, response, body) => {
-  if (err) return winston.error('SLACK: request failed', err)
-
-  let json = null
-  try {
-    json = JSON.parse(body)
-  } catch (e) {
-    return winston.error('SLACK: invalid JSON', e, body, response.statusCode, response.statusMessage)
+// try it few times as heroku can be slow in spawning instances
+async.retry(
+  {times: 3, interval: 5000},
+  notifyClients,
+  (err) => {
+    if (err) return winston.error('SLACK: failed to send messages', err)
+    return winston.info('SLACK: all messages were sent')
   }
-
-  let options = {
-    username: 'sbks-luncher'
-  }
-
-  for (let i = 0; i < config.NOTIFICATIONS.length; i++) {
-    let message = prepareMessage(json, config.NOTIFICATIONS[i].services)
-    web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, postMessageHandler)
-  }
-})
+)
