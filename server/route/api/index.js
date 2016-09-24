@@ -30,7 +30,7 @@ let createRoute = (bus, config, inputCb, outputCb) => {
         replyTo: channelWrapper.replyTo
       })
 
-      timer = setTimeout(() => respond([]), config.REQUEST_TIMEOUT)
+      timer = setTimeout(() => respond({data: {error: 'Timeout'}}), config.REQUEST_TIMEOUT)
     })
   }
 }
