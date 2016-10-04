@@ -19,8 +19,7 @@ let verifyResponse = (done) => {
 }
 
 let createServiceTests = (serviceName, middleware) => {
-  describe(`menu service: ${serviceName}`, function () {
-    this.timeout(5 * 1000)
+  describe(serviceName, () => {
 
     it('can correctly parse lunch menu', (done) => {
       let req = {data: {}}
@@ -47,7 +46,9 @@ let createServiceTests = (serviceName, middleware) => {
   })
 }
 
-describe('menu services', () => {
+describe('services', function () {
+  this.timeout(20 * 1000)
+
   for (let i = 0; i < config.SERVICES.length; i++) {
     let serviceName = config.SERVICES[i].name
     let service = require(`${rootPath}service/scrapper/${serviceName}`)()

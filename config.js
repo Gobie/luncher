@@ -2,7 +2,6 @@
 
 require('dotenv').config({silent: true})
 
-let _ = require('lodash')
 let services = require('./config.services.js')
 let notifications = require('./config.notifications.js')
 
@@ -17,7 +16,7 @@ module.exports = {
   CACHE_EXPIRATION: 4 * 3600,
   CACHE_ENABLED: process.env.NODE_ENV === 'production',
   // server
-  REQUEST_TIMEOUT: 5000,
+  REQUEST_TIMEOUT: 20000,
   PORT: process.env.PORT || 3000,
   LOGGING: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
   // slack
