@@ -56,6 +56,10 @@ let notifyClients = (next) => {
     let json = null
     try {
       json = JSON.parse(body)
+      if (json && json.length === 1 && json[0].error) {
+        winston.error('SLACK: failed to obtain menus', json[0].error)
+        return next(json[0].error);
+      }
     } catch (e) {
       winston.error('SLACK: invalid JSON', e, body, response.statusCode, response.statusMessage)
       return next(e)
