@@ -22,7 +22,7 @@ module.exports = () => {
     next(null, out)
   }
 
-  let url = 'https://www.zomato.com/cs/praha/restaurace-u-san%C3%AD-karl%C3%ADn-praha-8/menu'
+  let url = 'https://www.zomato.com/cs/praha/restaurace-u-san%C3%AD-karl%C3%ADn-praha-8/denn%C3%AD-menu'
 
   return {
     middleware: zo.middleware(url, helpers.createProcessMenu(processMenu))
