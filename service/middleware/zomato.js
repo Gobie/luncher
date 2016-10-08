@@ -2,11 +2,9 @@
 
 let _ = require('lodash')
 let moment = require('moment')
-let xray = require('x-ray')
+let x = require('../../lib/xray')
 
 module.exports = () => {
-  let x = xray()
-
   let monthMap = {
     leden: '01',
     únor: '02',

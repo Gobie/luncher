@@ -1,13 +1,11 @@
 'use strict'
 
 let _ = require('lodash')
-let xray = require('x-ray')
+let x = require('../../lib/xray')
 let moment = require('moment')
 let helpers = require('../helpers')
 
 module.exports = () => {
-  let x = xray()
-
   let getItem = (lunchMenuItem) => {
     let item = lunchMenuItem.item.replace(lunchMenuItem.allergens, '')
     return _.trim(item)
@@ -43,10 +41,14 @@ module.exports = () => {
       }
     }
 
-    let out = [{
-      date: moment(obj.day.replace(/^\D+/, ''), 'D. M. YYYY').format('YYYY-MM-DD'),
-      items
-    }]
+    let out = []
+
+    if (obj.day) {
+      out.push({
+        date: moment(obj.day.replace(/^\D+/, ''), 'D. M. YYYY').format('YYYY-MM-DD'),
+        items
+      })
+    }
 
     next(null, out)
   }
