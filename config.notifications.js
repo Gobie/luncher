@@ -35,7 +35,7 @@ module.exports = [
   },
   {
     user: '@martin.kadlec',
-    services: ['tankovna', 'lokal-hamburk']
+    services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
     user: '@adamsobotka',
