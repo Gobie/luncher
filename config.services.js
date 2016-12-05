@@ -3,19 +3,23 @@
 module.exports = [
   {
     name: 'peters',
-    title: 'Peter´s Burger Pub'
+    title: 'Peter´s Burger Pub',
+    id: 16506740
   },
   {
     name: 'meat-market',
-    title: 'Presto meat market'
+    title: 'Presto meat market',
+    id: 16520713
   },
   {
     name: 'tankovna',
-    title: 'Tankovna'
+    title: 'Tankovna',
+    id: 18057566
   },
   {
     name: 'u-sani',
-    title: 'U Saní'
+    title: 'U Saní',
+    id: 16506910
   },
   {
     name: 'lokal-hamburk',
@@ -23,14 +27,17 @@ module.exports = [
   },
   {
     name: 'u-zabranskych',
-    title: 'U Zábranských'
+    title: 'U Zábranských',
+    id: 16505936
   },
   {
     name: 'globus',
-    title: 'Globus'
+    title: 'Globus',
+    id: 18257507
   },
   {
     name: 'u-tunelu',
-    title: 'Hostinec U Tunelu'
+    title: 'Hostinec U Tunelu',
+    id: 16524768
   }
 ]

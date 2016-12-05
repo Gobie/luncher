@@ -8,7 +8,7 @@ module.exports = (config) => {
     services[config.SERVICES[i].name] = {
       name: config.SERVICES[i].name,
       title: config.SERVICES[i].title,
-      middleware: require(`../scrapper/${config.SERVICES[i].name}`)().middleware
+      middleware: require(`../scrapper/${config.SERVICES[i].name}`)(config, config.SERVICES[i]).middleware
     }
   }
 

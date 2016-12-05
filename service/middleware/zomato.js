@@ -2,58 +2,67 @@
 
 let _ = require('lodash')
 let moment = require('moment')
-let x = require('../../lib/xray')
+let Request = require('request')
 
-module.exports = () => {
-  let monthMap = {
-    leden: '01',
-    únor: '02',
-    březen: '03',
-    duben: '04',
-    květen: '05',
-    červenec: '07',
-    červen: '06',
-    srpen: '08',
-    září: '09',
-    říjen: '10',
-    listopad: '11',
-    prosinec: '12'
+function makeDriver(opts) {
+  let request
+  if (typeof opts === "function") {
+    request = opts
+  } else {
+    request = Request.defaults(opts)
   }
 
-  let monthReplace = (replacer) => monthMap[replacer]
+  return function driver(context, callback) {
+    var url = context.url
+
+    request(url, function(err, response, body) {
+      return callback(err, body)
+    })
+  }
+}
+
+module.exports = (config) => {
+  let request = makeDriver({
+    method: 'GET',
+    headers: {
+      'user_key': config.ZOMATO_USER_KEY,
+      'Accept': 'application/json'
+    }
+  });
 
   let parseDate = (dateString) => {
-    let date = dateString
-      .replace(/^.+,\s+/, '')
-      .replace(' (dnes)', '')
-      .replace(new RegExp(_.keys(monthMap).join('|')), monthReplace)
-    return moment(date, 'D M')
+    return moment(dateString).format('YYYY-MM-DD')
   }
 
   let mapItem = (item) => {
-    let title = _.trim(item.title).replace(/\s+/g, ' ')
+    item = item.dish
+    let title = item.name.replace(/\s+/g, ' ')
     let amount = title.match(/\d+g/)
+    let prices = item.name.match(/(\/?\d+,-)+/)
+    let price = item.price || (prices && prices[0]) || 'N/A Kč'
     return {
-      item: title,
-      price: _.trim(item.price),
+      item: _.trim(title.replace(/\d+g |^\- */g, '').replace(price, '')),
+      price: _.trim(price.replace(/,-/g, ' Kč')),
       amount: amount ? amount[0] : '1ks'
     }
   }
 
-  let middleware = (url, processMenuFn) => {
+  let middleware = (id, processMenuFn) => {
     return (req, res, next) => {
       let options = {}
-      Object.assign(options, {url}, req.data)
+      Object.assign(options, {url: 'https://developers.zomato.com/api/v2.1/dailymenu?res_id=' + id}, req.data)
 
-      x(options.url, '#menu-preview', {
-        menus: x('div.tmi-group', [{
-          day: 'div.tmi-group-name',
-          items: x('div.tmi-daily', [{
-            title: 'div.tmi-name',
-            price: 'div.tmi-price'
-          }])
-        }])
-      })(processMenuFn(options, res, next))
+      let done = processMenuFn(options, res, next)
+      request(options, (err, body) => {
+        if (err) return done(err)
+        try {
+          let json = JSON.parse(body)
+          if (json && json.status !== 'success') err = '[Request error]' + body
+          done(err, json)
+        } catch (e) {
+          done(e)
+        }
+      })
     }
   }
 

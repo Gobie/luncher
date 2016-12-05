@@ -57,7 +57,7 @@ describe('services', function () {
 
   for (let i = 0; i < config.SERVICES.length; i++) {
     let serviceName = config.SERVICES[i].name
-    let service = require(`${rootPath}service/scrapper/${serviceName}`)()
+    let service = require(`${rootPath}service/scrapper/${serviceName}`)(config, config.SERVICES[i])
     let middleware = ware().use(service.middleware)
 
     createServiceTests(serviceName, middleware)
