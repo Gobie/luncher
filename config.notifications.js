@@ -11,7 +11,7 @@ module.exports = [
   },
   {
     user: '@ottokovarik',
-    services: ['tankovna', 'lokal-hamburk']
+    services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
     user: '@radim',
