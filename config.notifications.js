@@ -38,16 +38,8 @@ module.exports = [
     services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
-    user: '@adamsobotka',
-    services: ['tankovna', 'lokal-hamburk', 'meat-market', 'globus']
-  },
-  {
     user: '@tomasbauer',
     services: ['tankovna', 'lokal-hamburk', 'globus']
-  },
-  {
-    user: '@navratj',
-    services: ['tankovna', 'lokal-hamburk', 'u-zabranskych']
   },
   {
     user: '@snajby',
