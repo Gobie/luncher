@@ -14,9 +14,11 @@ let isWeekend = () => {
   return weekDay === 0 || weekDay === 6
 }
 
-let postMessageHandler = (err, info) => {
-  if (err) return winston.error('SLACK: postMessage failed:', err)
-  if (info && !info.ok) return winston.error('SLACK: invalid postMessage response:', info)
+let createPostMessageHandler = (user) => {
+  return (err, info) => {
+    if (err) return winston.error('SLACK: postMessage failed:', err, user)
+    if (info && !info.ok) return winston.error('SLACK: invalid postMessage response:', info, user)
+  }
 }
 
 let onlySubscribed = (allowed) => (service) => allowed.indexOf(service.name) !== -1
@@ -72,7 +74,7 @@ let notifyClients = (next) => {
     try {
       for (let i = 0; i < config.NOTIFICATIONS.length; i++) {
         let message = prepareMessage(json, config.NOTIFICATIONS[i].services)
-        web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, postMessageHandler)
+        web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, createPostMessageHandler(config.NOTIFICATIONS[i].user))
       }
     } catch (e) {
       winston.error('SLACK: failed preparing message', e, json)
