@@ -7,7 +7,7 @@ module.exports = [
   },
   {
     user: '@jan.pavlovsky',
-    services: ['peters', 'meat-market', 'globus', 'u-sani', 'lokal-hamburk']
+    services: ['peters', 'meat-market', 'globus', 'lokal-hamburk']
   },
   {
     user: '@ottokovarik',
@@ -23,7 +23,7 @@ module.exports = [
   },
   {
     user: '@radek.carda',
-    services: ['peters', 'globus', 'meat-market', 'lokal-hamburk', 'u-zabranskych']
+    services: ['peters', 'globus', 'meat-market', 'lokal-hamburk']
   },
   {
     user: '@zdenek.cejka',
@@ -60,5 +60,9 @@ module.exports = [
   {
     user: '@ondram',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-sani', 'u-tunelu']
+  },
+  {
+    user: '@jenism',
+    services: ['peters', 'meat-market', 'globus', 'lokal-hamburk']
   }
 ]
