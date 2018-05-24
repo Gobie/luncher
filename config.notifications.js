@@ -68,5 +68,17 @@ module.exports = [
   {
     user: '@petrkrejcik',
     services: ['tankovna', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
-  }
+  },
+  {
+    user: '@adamsobotka',
+    services: ['tankovna', 'lokal-hamburk', 'meat-market', 'globus']
+  },
+  {
+    user: '@jakubsimecek',
+    services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-sani', 'u-tunelu']
+  },
+  {
+    user: '@renata.vostra',
+    services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
+  },
 ]
