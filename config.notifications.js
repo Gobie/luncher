@@ -81,4 +81,8 @@ module.exports = [
     user: '@renata.vostra',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
   },
+  {
+    user: '@martin.triska',
+    services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
+  },
 ]
