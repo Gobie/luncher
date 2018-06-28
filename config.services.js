@@ -33,7 +33,6 @@ module.exports = [
   {
     name: 'globus',
     title: 'Globus',
-    id: 18257507
   },
   {
     name: 'u-tunelu',
