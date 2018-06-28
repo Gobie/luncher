@@ -7,7 +7,7 @@ module.exports = [
   },
   {
     user: '@jan.pavlovsky',
-    services: ['peters', 'meat-market', 'globus', 'lokal-hamburk']
+    services: ['peters', 'meat-market', 'globus', 'lokal-hamburk', 'bad-flash-bar']
   },
   {
     user: '@ottokovarik',
