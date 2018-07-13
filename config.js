@@ -8,9 +8,9 @@ let notifications = require('./config.notifications.js')
 module.exports = {
   // addons
   AMQP: process.env.CLOUDAMQP_URL,
-  MEMCAHE_SERVERS: process.env.MEMCACHEDCLOUD_SERVERS,
-  MEMCAHE_USERNAME: process.env.MEMCACHEDCLOUD_USERNAME,
-  MEMCAHE_PASSWORD: process.env.MEMCACHEDCLOUD_PASSWORD,
+  MEMCACHE_SERVERS: process.env.MEMCACHEDCLOUD_SERVERS,
+  MEMCACHE_USERNAME: process.env.MEMCACHEDCLOUD_USERNAME,
+  MEMCACHE_PASSWORD: process.env.MEMCACHEDCLOUD_PASSWORD,
   // services
   SERVICES: services,
   CACHE_EXPIRATION: 4 * 3600,

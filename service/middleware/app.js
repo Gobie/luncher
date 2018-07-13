@@ -6,7 +6,7 @@ let hubFactory = require('./hub')
 
 module.exports = (config, winston) => {
   let cache = cacheFactory(config, winston)
-  let hub = hubFactory(config)
+  let hub = hubFactory(config, winston)
 
   return {
     middleware: ware()

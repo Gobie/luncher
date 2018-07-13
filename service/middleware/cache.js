@@ -4,11 +4,11 @@ let memjs = require('memjs')
 let crypto = require('crypto')
 
 module.exports = (config, winston) => {
-  if (!config.MEMCAHE_SERVERS) throw new Error('MEMCAHE_SERVERS config variable must be set')
+  if (!config.MEMCACHE_SERVERS) throw new Error('MEMCACHE_SERVERS config variable must be set')
 
-  let client = memjs.Client.create(config.MEMCAHE_SERVERS, {
-    username: config.MEMCAHE_USERNAME,
-    password: config.MEMCAHE_PASSWORD
+  let client = memjs.Client.create(config.MEMCACHE_SERVERS, {
+    username: config.MEMCACHE_USERNAME,
+    password: config.MEMCACHE_PASSWORD
   })
 
   let createKey = (data) => {
@@ -26,6 +26,7 @@ module.exports = (config, winston) => {
 
       if (val) {
         try {
+          winston.info('CACHE: retrieve from cache', key)
           res.data = JSON.parse(val.toString())
           res.send(null, req, res)
           return

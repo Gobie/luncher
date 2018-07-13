@@ -2,7 +2,7 @@
 
 let async = require('async')
 
-module.exports = (config) => {
+module.exports = (config, winston) => {
   let services = {}
   for (let i = 0; i < config.SERVICES.length; i++) {
     services[config.SERVICES[i].name] = {
@@ -21,7 +21,11 @@ module.exports = (config) => {
           title: service.title
         }
         res.data.push(localRes)
-        service.middleware(req, localRes, next)
+        winston.info('HUB: scrapper queried', serviceName)
+        service.middleware(req, localRes, (e, r) => {
+          winston.info('HUB: scrapper responded', serviceName)
+          next(e, r)
+        })
       }
     }), next)
   }
