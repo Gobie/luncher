@@ -16,7 +16,7 @@
     "test:mocha": "./node_modules/.bin/mocha -R spec --bail --check-leaks --compilers js:babel-register test/**/*.spec.js"
   },
   "engines": {
-    "node": "5.4.0"
+    "node": "8.11.0"
   },
   "repository": {
     "type": "git",
