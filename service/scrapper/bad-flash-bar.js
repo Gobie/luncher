@@ -2,9 +2,9 @@
 
 let _ = require('lodash')
 let zomato = require('../middleware/zomato')
-let helpers = require('../helpers')
 
-module.exports = (config, serviceConfig) => {
+module.exports = (config, winston, serviceConfig) => {
+  let helpers = require('../helpers')(winston)
   let zo = zomato(config)
 
   let noHeaders = (menu) => !menu.item.match(/Polední nabídka|v menu|Domácí limonáda|0,3l|Informace o alergenech/gi)

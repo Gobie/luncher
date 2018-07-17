@@ -2,9 +2,9 @@
 
 let _ = require('lodash')
 let moment = require('moment')
-let helpers = require('../helpers')
 
-module.exports = (config) => {
+module.exports = (config, winston) => {
+  let helpers = require('../helpers')(winston)
   let x = require('../../lib/xray')(config)
 
   let getItem = (lunchMenuItem) => {

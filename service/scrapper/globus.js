@@ -1,9 +1,9 @@
 'use strict'
 
 let moment = require('moment')
-let helpers = require('../helpers')
 
-module.exports = (config) => {
+module.exports = (config, winston) => {
+  let helpers = require('../helpers')(winston)
   let x = require('../../lib/xray')(config)
 
   const DAY_NAMES = {
@@ -17,6 +17,7 @@ module.exports = (config) => {
   }
 
   let processMenu = (sections, options, next) => {
+    winston.info('SERVICE: GLOBUS: processMenu started')
     let items = []
 
     const today = DAY_NAMES[moment().isoWeekday()]
@@ -66,10 +67,12 @@ module.exports = (config) => {
       })
     }
 
+    winston.info('SERVICE: GLOBUS: processMenu finished')
     next(null, out)
   }
 
   let middleware = (req, res, next) => {
+    winston.info('SERVICE: GLOBUS: started')
     let options = {}
     Object.assign(options, {
       url: 'http://restauraceglobus.cz/poledni-menu/'
