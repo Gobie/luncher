@@ -16,6 +16,7 @@ module.exports = {
   CACHE_EXPIRATION: 4 * 3600,
   CACHE_ENABLED: process.env.NODE_ENV === 'production',
   ZOMATO_USER_KEY: process.env.ZOMATO_USER_KEY,
+  X_RAY_REQUEST_TIMEOUT: 15000,
   // server
   REQUEST_TIMEOUT: 20000,
   PORT: process.env.PORT || 3000,

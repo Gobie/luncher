@@ -1,10 +1,11 @@
 'use strict'
 
-let x = require('../../lib/xray')
 let moment = require('moment')
 let helpers = require('../helpers')
 
-module.exports = () => {
+module.exports = (config) => {
+  let x = require('../../lib/xray')(config)
+
   const DAY_NAMES = {
     '1': 'Pondělí',
     '2': 'Úterý',
@@ -55,7 +56,7 @@ module.exports = () => {
         break
       }
     }
-  
+
     let out = []
 
     if (items.length) {

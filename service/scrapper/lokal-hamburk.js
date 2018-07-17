@@ -1,11 +1,12 @@
 'use strict'
 
 let _ = require('lodash')
-let x = require('../../lib/xray')
 let moment = require('moment')
 let helpers = require('../helpers')
 
-module.exports = () => {
+module.exports = (config) => {
+  let x = require('../../lib/xray')(config)
+
   let getItem = (lunchMenuItem) => {
     let item = lunchMenuItem.item.replace(lunchMenuItem.allergens, '')
     return _.trim(item)
