@@ -10,8 +10,12 @@ module.exports = [
     services: ['peters', 'meat-market', 'globus', 'lokal-hamburk', 'bad-flash-bar']
   },
   {
-    user: '@ottokovarik',
+    user: '@alina',
     services: ['tankovna', 'lokal-hamburk', 'globus']
+  },
+  {
+    user: '@ottokovarik',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar']
   },
   {
     user: '@radim',
