@@ -74,7 +74,7 @@ let notifyClients = (next) => {
     try {
       for (let i = 0; i < config.NOTIFICATIONS.length; i++) {
         let message = prepareMessage(json, config.NOTIFICATIONS[i].services)
-        web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, createPostMessageHandler(config.NOTIFICATIONS[i].user))
+        web.chat.postMessage(config.NOTIFICATIONS[i].user, message, options, createPostMessageHandler(config.NOTIFICATIONS[i].username))
       }
     } catch (e) {
       winston.error('SLACK: failed preparing message', e, json)

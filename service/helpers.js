@@ -25,8 +25,6 @@ module.exports = (winston) => {
       return (err, obj) => {
         winston.info('SERVICE: HELPER: response accepted', options.url)
         if (err) winston.info('SERVICE: HELPER: response err', err)
-        if (obj) winston.info('SERVICE: HELPER: response obj', obj)
-
         if (err) return next(err)
 
         processMenu(obj, options, (err, menu) => {
