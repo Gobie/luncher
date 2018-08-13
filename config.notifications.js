@@ -17,6 +17,11 @@ module.exports = [
     services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
+    user: 'U4Y0SMG5P',
+    username: 'jakub.loffelmann',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar']
+  },
+  {
     user: 'U02AG6ZJW',
     username: 'ottokovarik',
     services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar']
