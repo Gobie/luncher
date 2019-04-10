@@ -1,66 +1,59 @@
 'use strict'
 
-let moment = require('moment')
+const moment = require('moment')
 
 module.exports = (config, winston) => {
-  let helpers = require('../helpers')(winston)
-  let x = require('../../lib/xray')(config)
+  const helpers = require('../helpers')(winston)
+  const x = require('../../lib/xray')(config)
 
-  const DAY_NAMES = {
-    '1': 'Pondělí',
-    '2': 'Úterý',
-    '3': 'Středa',
-    '4': 'Čtvrtek',
-    '5': 'Pátek',
-    '6': 'Sobota',
-    '7': 'Neděle'
-  }
+  const dayNames = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle']
 
-  let processMenu = (sections, options, next) => {
+  const processMenu = (lines, options, next) => {
     winston.info('SERVICE: GLOBUS: processMenu started')
-    let items = []
 
-    const today = DAY_NAMES[moment().isoWeekday()]
+    lines = lines.split('\n').map(line => line.trim()).filter(Boolean)
 
-    for (let i = 0; i < sections.length; i++) {
-      const section = sections[i]
-      if (!section.days.length) continue
+    const menuByDays = {}
+    let dayName = null
 
-      for (let j = 0; j < section.days.length; j++) {
-        const dayName = section.days[j]
-        if (dayName !== today) continue
-
-        const dailySoup = section.soups[j]
-        const dailyMenu = section.menu[j].split('\n').filter(Boolean)
-        const dailyDessert = dailyMenu.pop()
-
-        items.push({
-          item: dailySoup,
-          price: '35 Kč',
-          amount: '1ks'
-        })
-
-        dailyMenu.forEach(menuItem => {
-          items.push({
-            item: menuItem,
-            price: '128 Kč',
-            amount: '1ks'
-          })
-        })
-
-        items.push({
-          item: dailyDessert,
-          price: 'N/A Kč',
-          amount: '1ks'
-        })
-
-        break
+    for (const line of lines) {
+      if (dayNames.includes(line)) {
+        dayName = line
+        continue
       }
+
+      if (!menuByDays[dayName]) {
+          menuByDays[dayName] = []
+      }
+
+      menuByDays[dayName].push(line)
     }
 
-    let out = []
+    const todayName = dayNames[moment().isoWeekday() - 1]
+    const todayMenu = menuByDays[todayName]
 
-    if (items.length) {
+    const out = []
+
+    if (todayMenu) {
+      const items = []
+
+      for (const meal of todayMenu) {
+        const match = meal.match(/(.*)\s+(\d+),-$/)
+        if (match) {
+          items.push({
+            item: match[1].trim(),
+            price: `${match[2]} Kč`,
+            amount: '1ks'
+          })
+        } else {
+          items.push({
+            item: meal,
+            price: 'N/A Kč',
+            amount: '1ks'
+          })
+        }
+      }
+
       out.push({
         date: moment().format('YYYY-MM-DD'),
         items
@@ -71,18 +64,14 @@ module.exports = (config, winston) => {
     next(null, out)
   }
 
-  let middleware = (req, res, next) => {
+  const middleware = (req, res, next) => {
     winston.info('SERVICE: GLOBUS: started')
     let options = {}
     Object.assign(options, {
       url: 'http://restauraceglobus.cz/poledni-menu/'
     }, req.data)
 
-    x(options.url, 'section .vc_column-inner > .wpb_wrapper', [{
-      days: ['h2'],
-      soups: ['p'],
-      menu: ['ol', 'li']
-    }])(helpers.createProcessMenu(processMenu)(options, res, next))
+    x(options.url, '.entry-content')(helpers.createProcessMenu(processMenu)(options, res, next))
   }
 
   return {middleware}
