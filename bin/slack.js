@@ -2,16 +2,27 @@
 
 let _ = require('lodash')
 let async = require('async')
-let moment = require('moment')
+let moment = require('moment-timezone')
 let winston = require('winston')
 let request = require('request')
 let WebClient = require('@slack/client').WebClient
 let config = require('../config')
 let web = new WebClient(config.SLACK_API_TOKEN)
 
-let isWeekend = () => {
-  let weekDay = moment().day()
-  return weekDay === 0 || weekDay === 6
+let shouldSkip = () => {
+  let m = moment().tz('Europe/Prague')
+
+  // skip on weekends
+  if (m.day() === 0 || m.day() === 6) {
+    return true
+  }
+
+  // skip all hours except 10, minutes are defined in the scheduler
+  if (m.hour() !== 10) {
+    return true
+  }
+
+  return false
 }
 
 let createPostMessageHandler = (user) => {
@@ -85,8 +96,8 @@ let notifyClients = (next) => {
   })
 }
 
-// don't bother on weekends
-if (isWeekend()) process.exit(0)
+// don't bother
+if (shouldSkip()) process.exit(0)
 
 // try it few times as heroku can be slow in spawning instances
 async.retry(
