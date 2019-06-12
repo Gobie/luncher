@@ -24,7 +24,7 @@ module.exports = [
   {
     user: 'U02AG6ZJW',
     username: 'ottokovarik',
-    services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar']
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar', 'sklizeno']
   },
   {
     user: 'U02DFEYFU',
@@ -44,17 +44,17 @@ module.exports = [
   {
     user: 'U02A8R785',
     username: 'mafo',
-    services: ['tankovna', 'lokal-hamburk', 'globus']
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'sklizeno']
   },
   {
     user: 'U02G1DFK5',
     username: 'martin.kadlec',
-    services: ['tankovna', 'lokal-hamburk', 'globus']
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'sklizeno']
   },
   {
     user: 'U02AAEFEE',
     username: 'tomasbauer',
-    services: ['tankovna', 'lokal-hamburk', 'globus']
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'sklizeno']
   },
   {
     user: 'U1N3KSXV5',
