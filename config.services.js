@@ -43,5 +43,9 @@ module.exports = [
     name: 'bad-flash-bar',
     title: 'Bad Flash Bar',
     id: 18422987
+  },
+  {
+    name: 'sklizeno',
+    title: 'Sklizeno - My Food Corso'
   }
 ]
