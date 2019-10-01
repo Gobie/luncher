@@ -87,11 +87,6 @@ module.exports = [
     services: ['peters', 'meat-market', 'globus', 'lokal-hamburk']
   },
   {
-    user: 'U02A9M0QB',
-    username: 'petrkrejcik',
-    services: ['tankovna', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
-  },
-  {
     user: 'U02A54QBN',
     username: 'adamsobotka',
     services: ['tankovna', 'lokal-hamburk', 'meat-market', 'globus']
