@@ -44,7 +44,7 @@
     "memjs": "^0.9.0",
     "moment": "^2.12.0",
     "moment-timezone": "^0.5.25",
-    "morgan": "^1.7.0",
+    "morgan": "^1.9.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "request": "^2.70.0",
