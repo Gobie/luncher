@@ -16,7 +16,7 @@
     "test:mocha": "./node_modules/.bin/mocha -R spec --bail --check-leaks --compilers js:babel-register test/**/*.spec.js"
   },
   "engines": {
-    "node": "5.4.0"
+    "node": "8.11.0"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "lodash": "^4.9.0",
     "memjs": "^0.9.0",
     "moment": "^2.12.0",
+    "moment-timezone": "^0.5.25",
     "morgan": "^1.7.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",

@@ -3,6 +3,7 @@
 let rootPath = '../../'
 let moment = require('moment')
 let tv4 = require('tv4')
+let winston = require('winston')
 let ware = require('ware')
 let serviceSchema = require(`${rootPath}lib/schema/service`)
 let config = require(`${rootPath}config`)
@@ -57,7 +58,7 @@ describe('services', function () {
 
   for (let i = 0; i < config.SERVICES.length; i++) {
     let serviceName = config.SERVICES[i].name
-    let service = require(`${rootPath}service/scrapper/${serviceName}`)(config, config.SERVICES[i])
+    let service = require(`${rootPath}service/scrapper/${serviceName}`)(config, winston, config.SERVICES[i])
     let middleware = ware().use(service.middleware)
 
     createServiceTests(serviceName, middleware)

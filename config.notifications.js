@@ -2,67 +2,113 @@
 
 module.exports = [
   {
-    user: '@michal.brasna',
+    user: 'U02AFEUJT',
+    username: 'michal.brasna',
     services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
-    user: '@jan.pavlovsky',
-    services: ['peters', 'meat-market', 'globus', 'lokal-hamburk']
+    user: 'U02U8LR8C',
+    username: 'jan.pavlovsky',
+    services: ['peters', 'meat-market', 'globus', 'lokal-hamburk', 'bad-flash-bar']
   },
   {
-    user: '@ottokovarik',
+    user: 'UAQUTU63Z',
+    username: 'alina',
     services: ['tankovna', 'lokal-hamburk', 'globus']
   },
   {
-    user: '@radim',
+    user: 'U4Y0SMG5P',
+    username: 'jakub.loffelmann',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar']
+  },
+  {
+    user: 'U02AG6ZJW',
+    username: 'ottokovarik',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'bad-flash-bar', 'sklizeno']
+  },
+  {
+    user: 'U02DFEYFU',
+    username: 'radim',
     services: ['tankovna', 'lokal-hamburk', 'u-zabranskych']
   },
   {
-    user: '@tomas.pokorny',
+    user: 'U02APJAFH',
+    username: 'tomas.pokorny',
     services: ['tankovna', 'lokal-hamburk']
   },
   {
-    user: '@radek.carda',
+    user: 'U02AAGWQL',
+    username: 'radek.carda',
     services: ['peters', 'globus', 'meat-market', 'lokal-hamburk']
   },
   {
-    user: '@zdenek.cejka',
-    services: ['peters', 'tankovna', 'u-sani', 'meat-market', 'globus']
+    user: 'U02A8R785',
+    username: 'mafo',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'sklizeno']
   },
   {
-    user: '@mafo',
-    services: ['tankovna', 'lokal-hamburk', 'globus']
+    user: 'U02G1DFK5',
+    username: 'martin.kadlec',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'sklizeno']
   },
   {
-    user: '@martin.kadlec',
-    services: ['tankovna', 'lokal-hamburk', 'globus']
+    user: 'U02AAEFEE',
+    username: 'tomasbauer',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'sklizeno']
   },
   {
-    user: '@tomasbauer',
-    services: ['tankovna', 'lokal-hamburk', 'globus']
-  },
-  {
-    user: '@snajby',
+    user: 'U1N3KSXV5',
+    username: 'snajby',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych']
   },
   {
-    user: '@milan',
+    user: 'U02AKQ3N6',
+    username: 'milan',
     services: ['peters', 'tankovna', 'u-sani', 'meat-market', 'lokal-hamburk', 'globus']
   },
   {
-    user: '@vaclavhosticka',
+    user: 'U0CGN045Q',
+    username: 'vaclavhosticka',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych']
   },
   {
-    user: '@ango',
+    user: 'U3YKTP9B3',
+    username: 'ango',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-sani', 'u-tunelu']
   },
   {
-    user: '@ondram',
+    user: 'U4SRV3LUQ',
+    username: 'ondram',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-sani', 'u-tunelu']
   },
   {
-    user: '@jenism',
+    user: 'U1X00FEPQ',
+    username: 'jenism',
     services: ['peters', 'meat-market', 'globus', 'lokal-hamburk']
+  },
+  {
+    user: 'U02A9M0QB',
+    username: 'petrkrejcik',
+    services: ['tankovna', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
+  },
+  {
+    user: 'U02A54QBN',
+    username: 'adamsobotka',
+    services: ['tankovna', 'lokal-hamburk', 'meat-market', 'globus']
+  },
+  {
+    user: 'U0FK93EE6',
+    username: 'jakubsimecek',
+    services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-sani', 'u-tunelu']
+  },
+  {
+    user: 'U8MCDASJX',
+    username: 'renata.vostra',
+    services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
+  },
+  {
+    user: 'U92CL53TP',
+    username: 'martin.hrabovsky',
+    services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
   }
 ]

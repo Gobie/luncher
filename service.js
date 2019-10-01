@@ -11,6 +11,7 @@ let start = (workerId) => {
   let app = require('./service/middleware/app')(config, winston)
 
   let channelWrapper = bus.server('service.menu', (msg, data) => {
+    winston.info('SERVICE: request', data)
     let validate = (err, res) => {
       if (err) {
         winston.error('SERVICE: error', data, err.stack || err)
@@ -27,6 +28,7 @@ let start = (workerId) => {
     }
 
     let next = (err, req, res) => {
+      winston.info('SERVICE: response', res ? res.data.length : err)
       channelWrapper.sendToQueue(
         msg.properties.replyTo,
         {
