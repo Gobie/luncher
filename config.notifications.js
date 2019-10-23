@@ -105,5 +105,25 @@ module.exports = [
     user: 'U92CL53TP',
     username: 'martin.hrabovsky',
     services: ['peters', 'tankovna', 'meat-market', 'lokal-hamburk', 'globus', 'u-zabranskych', 'u-tunelu']
+  },
+  {
+    user: 'UBR4UTP7C',
+    username: 'Tim',
+    services: ['peters', 'meat-market', 'tankovna', 'u-sani', 'lokal-hamburk', 'u-zabranskych', 'globus', 'u-tunelu', 'bad-flash-bar', 'sklizeno']
+  },
+  {
+    user: 'UJ2G6NN30',
+    username: 'johny.velho',
+    services: ['peters', 'meat-market', 'tankovna', 'u-sani', 'lokal-hamburk', 'u-zabranskych', 'globus', 'u-tunelu', 'bad-flash-bar', 'sklizeno']
+  },
+  {
+    user: 'UJA6EGY0Y',
+    username: 'Sroubek',
+    services: ['peters', 'meat-market', 'tankovna', 'u-sani', 'lokal-hamburk', 'u-zabranskych', 'globus', 'u-tunelu', 'bad-flash-bar', 'sklizeno']
+  },
+  {
+    user: 'UJJ9X9GAK',
+    username: 'silvaa',
+    services: ['peters', 'meat-market', 'tankovna', 'u-sani', 'lokal-hamburk', 'u-zabranskych', 'globus', 'u-tunelu', 'bad-flash-bar', 'sklizeno']
   }
 ]
