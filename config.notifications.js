@@ -125,5 +125,10 @@ module.exports = [
     user: 'UJJ9X9GAK',
     username: 'silvaa',
     services: ['peters', 'meat-market', 'tankovna', 'u-sani', 'lokal-hamburk', 'u-zabranskych', 'globus', 'u-tunelu', 'bad-flash-bar', 'sklizeno']
+  },
+  {
+    user: 'UJFRQPL1J',
+    username: 'vinicius.araujo',
+    services: ['peters', 'meat-market', 'tankovna', 'u-sani', 'lokal-hamburk', 'u-zabranskych', 'globus', 'u-tunelu', 'bad-flash-bar', 'sklizeno']
   }
 ]
