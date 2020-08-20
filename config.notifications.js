@@ -39,7 +39,7 @@ module.exports = [
   {
     user: 'U02AAGWQL',
     username: 'radek.carda',
-    services: ['peters', 'globus', 'meat-market', 'lokal-hamburk']
+    services: ['meat-market', 'lokal-hamburk']
   },
   {
     user: 'U02A8R785',
